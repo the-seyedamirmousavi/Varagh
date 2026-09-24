@@ -1,0 +1,88 @@
+package com.mid.varagh.feature.reader
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.mid.varagh.core.designsystem.component.ReadingThemeSwatch
+import com.mid.varagh.core.designsystem.icon.VaraghIcons
+import com.mid.varagh.core.designsystem.reading.ReadingPalette
+import com.mid.varagh.core.model.ReadingTheme
+
+/** Phase-1 placeholder: navigation target + reading-theme preview. Real rendering lands in phase 4. */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+internal fun ReaderScreen(
+    bookId: Long,
+    onBack: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var theme by rememberSaveable { mutableStateOf(ReadingTheme.SEPIA) }
+    val palette = ReadingPalette.forTheme(theme)
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(R.string.reader_title)) },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(VaraghIcons.Back, contentDescription = stringResource(R.string.reader_back))
+                    }
+                },
+            )
+        },
+    ) { padding ->
+        Column(
+            Modifier
+                .fillMaxSize()
+                .padding(padding),
+        ) {
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .background(palette.background),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(text = stringResource(R.string.reader_placeholder, bookId), color = palette.text)
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState())
+                    .padding(12.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                ReadingTheme.entries.forEach { t ->
+                    ReadingThemeSwatch(
+                        theme = t,
+                        palette = ReadingPalette.forTheme(t),
+                        selected = t == theme,
+                        onClick = { theme = t },
+                    )
+                }
+            }
+        }
+    }
+}

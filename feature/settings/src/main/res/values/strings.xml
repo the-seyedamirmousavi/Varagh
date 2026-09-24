@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fa">
+    <string name="settings_title">تنظیمات</string>
+    <string name="settings_back">بازگشت</string>
+    <string name="settings_developer_info">اطلاعات توسعه‌دهنده</string>
+    <string name="settings_developer_info_summary">وضعیت اتصال به سرور و نشانی API در این نسخه</string>
+</resources>

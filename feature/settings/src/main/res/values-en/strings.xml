@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Settings</string>
+    <string name="settings_back">Back</string>
+    <string name="settings_developer_info">Developer info</string>
+    <string name="settings_developer_info_summary">Backend switch and API base URL of this build</string>
+</resources>

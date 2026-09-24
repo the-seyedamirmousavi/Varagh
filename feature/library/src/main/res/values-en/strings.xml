@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="library_title">Library</string>
+    <string name="library_empty_title">Your library is empty</string>
+    <string name="library_empty_message">Add a PDF from your phone to start reading.</string>
+    <string name="library_add_first_book">Add your first book</string>
+</resources>

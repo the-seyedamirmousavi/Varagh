@@ -32,3 +32,8 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# Project extras
+.kotlin/
+/captures
+.DS_Store

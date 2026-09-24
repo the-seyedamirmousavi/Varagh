@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fa">
+    <string name="reader_title">خواندن</string>
+    <string name="reader_back">بازگشت</string>
+    <string name="reader_placeholder">کتاب شمارهٔ %1$d</string>
+</resources>

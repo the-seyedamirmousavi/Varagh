@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Window-level theme only; all UI colours come from VaraghTheme in Compose. -->
+    <style name="Theme.Varagh" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/varagh_window_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+</resources>

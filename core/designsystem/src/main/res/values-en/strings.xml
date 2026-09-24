@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reading_theme_day">Day</string>
+    <string name="reading_theme_sepia">Sepia</string>
+    <string name="reading_theme_soft_grey">Soft grey</string>
+    <string name="reading_theme_dark">Dark</string>
+    <string name="reading_theme_night">Night</string>
+    <string name="reading_theme_custom">Custom</string>
+</resources>

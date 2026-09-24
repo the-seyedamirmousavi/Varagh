@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fa">
+    <string name="profile_title">نمایه</string>
+    <string name="profile_placeholder_title">نمایهٔ کتاب‌خوانی شما</string>
+    <string name="profile_placeholder_message">نام، بیوگرافی و کتابی که در حال خواندنش هستید اینجا نمایش داده می‌شود.</string>
+</resources>

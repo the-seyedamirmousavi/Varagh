@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Default resources are Persian (fa), the primary language of Varagh. English lives in values-en. -->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fa">
+    <string name="app_name">ورق</string>
+    <string name="nav_library">کتابخانه</string>
+    <string name="nav_history">تاریخچه</string>
+    <string name="nav_social">کتاب‌خوان‌ها</string>
+    <string name="nav_profile">نمایه</string>
+    <string name="nav_settings">تنظیمات</string>
+</resources>

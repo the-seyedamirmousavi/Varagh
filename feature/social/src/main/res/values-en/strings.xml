@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="social_title">Readers</string>
+    <string name="social_empty_title">You aren\'t following anyone yet</string>
+    <string name="social_empty_message">Discover other readers and see what they are reading.</string>
+</resources>

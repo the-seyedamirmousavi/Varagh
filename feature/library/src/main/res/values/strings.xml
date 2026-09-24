@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fa">
+    <string name="library_title">کتابخانه</string>
+    <string name="library_empty_title">کتابخانه‌تان خالی است</string>
+    <string name="library_empty_message">یک فایل PDF از گوشی‌تان اضافه کنید تا خواندن را شروع کنید.</string>
+    <string name="library_add_first_book">افزودن اولین کتاب</string>
+</resources>

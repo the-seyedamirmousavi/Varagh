@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reader_title">Reader</string>
+    <string name="reader_back">Back</string>
+    <string name="reader_placeholder">Book #%1$d</string>
+</resources>

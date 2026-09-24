@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile_title">Profile</string>
+    <string name="profile_placeholder_title">Your reader profile</string>
+    <string name="profile_placeholder_message">Your name, bio and the book you are currently reading will show up here.</string>
+</resources>

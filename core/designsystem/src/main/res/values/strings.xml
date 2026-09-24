@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Default resources are Persian (fa), the primary language of Varagh. English lives in values-en. -->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fa">
+    <string name="reading_theme_day">روز</string>
+    <string name="reading_theme_sepia">کاغذی</string>
+    <string name="reading_theme_soft_grey">خاکستری</string>
+    <string name="reading_theme_dark">تیره</string>
+    <string name="reading_theme_night">شب</string>
+    <string name="reading_theme_custom">سفارشی</string>
+</resources>

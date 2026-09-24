@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Varagh</string>
+    <string name="nav_library">Library</string>
+    <string name="nav_history">History</string>
+    <string name="nav_social">Readers</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_settings">Settings</string>
+</resources>
