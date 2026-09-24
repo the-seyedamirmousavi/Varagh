@@ -3,4 +3,5 @@
     <string name="reader_title">خواندن</string>
     <string name="reader_back">بازگشت</string>
     <string name="reader_placeholder">کتاب شمارهٔ %1$d</string>
+    <string name="reader_theme">رنگ صفحه</string>
 </resources>

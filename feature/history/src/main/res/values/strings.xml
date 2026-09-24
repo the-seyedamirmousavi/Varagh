@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fa">
     <string name="history_title">تاریخچه</string>
-    <string name="history_empty_title">هنوز کتابی نخوانده‌اید</string>
-    <string name="history_empty_message">کتاب‌هایی که می‌خوانید و آمار مطالعه‌تان اینجا نمایش داده می‌شود.</string>
+    <string name="history_this_year">امسال</string>
+    <string name="history_streak_days">%1$s روز پیاپی</string>
+    <string name="history_stat_books">کتاب</string>
+    <string name="history_stat_pages">صفحه</string>
+    <string name="history_stat_minutes">دقیقه</string>
+    <string name="history_empty_title">داستان کتاب‌خوانی‌تان از اینجا شروع می‌شود</string>
+    <string name="history_empty_message">کتاب‌هایی که می‌خوانید، زمان مطالعه و روزهای پیاپی‌تان اینجا جمع می‌شود.</string>
 </resources>

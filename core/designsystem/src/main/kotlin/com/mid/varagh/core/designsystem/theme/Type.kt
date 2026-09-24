@@ -17,23 +17,27 @@ val Vazirmatn = FontFamily(
 
 private val Default = Typography()
 
-private fun TextStyle.vazirmatn() = copy(fontFamily = Vazirmatn)
+private fun TextStyle.vazirmatn(weight: FontWeight? = null) =
+    copy(fontFamily = Vazirmatn, fontWeight = weight ?: fontWeight)
 
-/** Material 3 type scale with every style switched to Vazirmatn. Sizes are in sp, so they scale. */
+/**
+ * Material 3 type scale in Vazirmatn. Headings and numbers are bold for the high-contrast look;
+ * body text stays regular. Sizes are in sp, so they follow the user's font scale.
+ */
 val VaraghTypography = Typography(
-    displayLarge = Default.displayLarge.vazirmatn(),
-    displayMedium = Default.displayMedium.vazirmatn(),
-    displaySmall = Default.displaySmall.vazirmatn(),
-    headlineLarge = Default.headlineLarge.vazirmatn().copy(fontWeight = FontWeight.SemiBold),
-    headlineMedium = Default.headlineMedium.vazirmatn().copy(fontWeight = FontWeight.SemiBold),
-    headlineSmall = Default.headlineSmall.vazirmatn().copy(fontWeight = FontWeight.SemiBold),
-    titleLarge = Default.titleLarge.vazirmatn().copy(fontWeight = FontWeight.SemiBold),
-    titleMedium = Default.titleMedium.vazirmatn().copy(fontWeight = FontWeight.Medium),
-    titleSmall = Default.titleSmall.vazirmatn().copy(fontWeight = FontWeight.Medium),
+    displayLarge = Default.displayLarge.vazirmatn(FontWeight.Bold),
+    displayMedium = Default.displayMedium.vazirmatn(FontWeight.Bold),
+    displaySmall = Default.displaySmall.vazirmatn(FontWeight.Bold),
+    headlineLarge = Default.headlineLarge.vazirmatn(FontWeight.Bold),
+    headlineMedium = Default.headlineMedium.vazirmatn(FontWeight.Bold),
+    headlineSmall = Default.headlineSmall.vazirmatn(FontWeight.Bold),
+    titleLarge = Default.titleLarge.vazirmatn(FontWeight.Bold),
+    titleMedium = Default.titleMedium.vazirmatn(FontWeight.Bold),
+    titleSmall = Default.titleSmall.vazirmatn(FontWeight.SemiBold),
     bodyLarge = Default.bodyLarge.vazirmatn(),
     bodyMedium = Default.bodyMedium.vazirmatn(),
     bodySmall = Default.bodySmall.vazirmatn(),
-    labelLarge = Default.labelLarge.vazirmatn().copy(fontWeight = FontWeight.Medium),
-    labelMedium = Default.labelMedium.vazirmatn().copy(fontWeight = FontWeight.Medium),
-    labelSmall = Default.labelSmall.vazirmatn().copy(fontWeight = FontWeight.Medium),
+    labelLarge = Default.labelLarge.vazirmatn(FontWeight.Medium),
+    labelMedium = Default.labelMedium.vazirmatn(FontWeight.Medium),
+    labelSmall = Default.labelSmall.vazirmatn(FontWeight.Medium),
 )

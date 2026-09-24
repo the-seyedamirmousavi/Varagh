@@ -3,4 +3,5 @@
     <string name="reader_title">Reader</string>
     <string name="reader_back">Back</string>
     <string name="reader_placeholder">Book #%1$d</string>
+    <string name="reader_theme">Page colour</string>
 </resources>

@@ -4,4 +4,6 @@
     <string name="settings_back">بازگشت</string>
     <string name="settings_developer_info">اطلاعات توسعه‌دهنده</string>
     <string name="settings_developer_info_summary">وضعیت اتصال به سرور و نشانی API در این نسخه</string>
+    <string name="settings_section_developer">توسعه‌دهنده</string>
+    <string name="settings_section_build">این نسخه</string>
 </resources>

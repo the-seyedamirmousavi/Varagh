@@ -1,20 +1,29 @@
 package com.mid.varagh.feature.settings
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.BugReport
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.mid.varagh.core.designsystem.component.VaraghCard
+import com.mid.varagh.core.designsystem.component.VaraghTopAppBar
 import com.mid.varagh.core.model.FeatureFlags
 
 @Composable
@@ -25,7 +34,6 @@ internal fun SettingsScreenRoute(
     SettingsScreen(featureFlags = viewModel.featureFlags, onOpenDeveloperInfo = onOpenDeveloperInfo)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SettingsScreen(
     featureFlags: FeatureFlags,
@@ -34,16 +42,33 @@ internal fun SettingsScreen(
 ) {
     Scaffold(
         modifier = modifier,
-        topBar = { TopAppBar(title = { Text(stringResource(R.string.settings_title)) }) },
+        topBar = { VaraghTopAppBar(title = stringResource(R.string.settings_title)) },
     ) { padding ->
-        Column(Modifier.padding(padding)) {
+        Column(
+            Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .verticalScroll(rememberScrollState())
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            // Reading, appearance and backup sections arrive in phase 7.
             if (featureFlags.showDeveloperInfo) {
-                ListItem(
-                    headlineContent = { Text(stringResource(R.string.settings_developer_info)) },
-                    supportingContent = { Text(stringResource(R.string.settings_developer_info_summary)) },
-                    leadingContent = { Icon(Icons.Outlined.BugReport, contentDescription = null) },
-                    modifier = Modifier.clickable(onClick = onOpenDeveloperInfo),
-                )
+                VaraghCard(title = stringResource(R.string.settings_section_developer), contentPadding = PaddingValues(vertical = 4.dp)) {
+                    ListItem(
+                        headlineContent = { Text(stringResource(R.string.settings_developer_info)) },
+                        supportingContent = { Text(stringResource(R.string.settings_developer_info_summary)) },
+                        leadingContent = { Icon(Icons.Outlined.BugReport, contentDescription = null) },
+                        trailingContent = {
+                            Icon(Icons.AutoMirrored.Outlined.KeyboardArrowRight, contentDescription = null)
+                        },
+                        colors = ListItemDefaults.colors(
+                            containerColor = MaterialTheme.colorScheme.surface,
+                            supportingColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        ),
+                        modifier = Modifier.clickable(onClick = onOpenDeveloperInfo),
+                    )
+                }
             }
         }
     }

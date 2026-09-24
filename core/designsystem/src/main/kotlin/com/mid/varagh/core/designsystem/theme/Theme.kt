@@ -12,8 +12,8 @@ import androidx.compose.ui.platform.LocalContext
  * Varagh app theme.
  *
  * @param darkTheme whether to use the dark scheme.
- * @param dynamicColor use Material You wallpaper colours on Android 12+; falls back to the
- * book-themed palette otherwise.
+ * @param dynamicColor use Material You wallpaper colours on Android 12+ (opt-in); otherwise the
+ * monochrome Varagh palette is used.
  */
 @Composable
 fun VaraghTheme(
@@ -32,6 +32,7 @@ fun VaraghTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = VaraghTypography,
+        shapes = VaraghShapes,
         content = content,
     )
 }

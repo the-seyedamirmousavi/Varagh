@@ -4,4 +4,6 @@
     <string name="settings_back">Back</string>
     <string name="settings_developer_info">Developer info</string>
     <string name="settings_developer_info_summary">Backend switch and API base URL of this build</string>
+    <string name="settings_section_developer">Developer</string>
+    <string name="settings_section_build">This build</string>
 </resources>

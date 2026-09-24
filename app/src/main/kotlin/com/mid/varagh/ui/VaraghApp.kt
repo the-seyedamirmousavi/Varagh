@@ -1,21 +1,34 @@
 package com.mid.varagh.ui
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -25,6 +38,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.mid.varagh.core.designsystem.motion.VaraghMotion
 import com.mid.varagh.core.model.FeatureFlags
 import com.mid.varagh.feature.history.navigation.historyScreen
 import com.mid.varagh.feature.library.navigation.LibraryRoute
@@ -66,7 +80,14 @@ fun VaraghApp(
                 .padding(padding)
                 .consumeWindowInsets(padding),
         ) {
-            NavHost(navController = navController, startDestination = LibraryRoute) {
+            NavHost(
+                navController = navController,
+                startDestination = LibraryRoute,
+                enterTransition = { fadeIn(tween(240)) + scaleIn(tween(240), initialScale = 0.97f) },
+                exitTransition = { fadeOut(tween(160)) },
+                popEnterTransition = { fadeIn(tween(240)) + scaleIn(tween(240), initialScale = 1.03f) },
+                popExitTransition = { fadeOut(tween(160)) + scaleOut(tween(160), targetScale = 0.97f) },
+            ) {
                 libraryScreen(onOpenBook = navController::navigateToReader)
                 readerScreen(onBack = navController::popBackStack)
                 historyScreen()
@@ -85,22 +106,44 @@ internal fun VaraghBottomBar(
     onNavigate: (TopLevelDestination) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    NavigationBar(modifier = modifier.testTag("bottom_bar")) {
-        destinations.forEach { destination ->
-            val selected = currentDestination.isOnTopLevel(destination)
-            val label = stringResource(destination.labelRes)
-            NavigationBarItem(
-                selected = selected,
-                onClick = { onNavigate(destination) },
-                icon = {
-                    Icon(
-                        imageVector = if (selected) destination.selectedIcon else destination.unselectedIcon,
-                        contentDescription = null,
-                    )
-                },
-                label = { Text(label) },
-                modifier = Modifier.testTag("nav_${destination.name.lowercase()}"),
-            )
+    val colors = NavigationBarItemDefaults.colors(
+        selectedIconColor = MaterialTheme.colorScheme.onSurface,
+        selectedTextColor = MaterialTheme.colorScheme.onSurface,
+        indicatorColor = MaterialTheme.colorScheme.surfaceVariant,
+        unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+        unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+    Column(modifier.testTag("bottom_bar")) {
+        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+        NavigationBar(containerColor = MaterialTheme.colorScheme.surface, tonalElevation = 0.dp) {
+            destinations.forEach { destination ->
+                val selected = currentDestination.isOnTopLevel(destination)
+                val label = stringResource(destination.labelRes)
+                val iconScale by animateFloatAsState(
+                    targetValue = if (selected) 1.12f else 1f,
+                    animationSpec = VaraghMotion.Bouncy,
+                    label = "navIcon",
+                )
+                NavigationBarItem(
+                    selected = selected,
+                    onClick = { onNavigate(destination) },
+                    icon = {
+                        Icon(
+                            imageVector = if (selected) destination.selectedIcon else destination.unselectedIcon,
+                            contentDescription = null,
+                            modifier = Modifier.graphicsLayer {
+                                scaleX = iconScale
+                                scaleY = iconScale
+                            },
+                        )
+                    },
+                    label = {
+                        Text(label, fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal)
+                    },
+                    colors = colors,
+                    modifier = Modifier.testTag("nav_${destination.name.lowercase()}"),
+                )
+            }
         }
     }
 }

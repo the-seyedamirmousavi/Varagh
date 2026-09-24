@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="library_title">Library</string>
-    <string name="library_empty_title">Your library is empty</string>
+    <string name="library_empty_title">Your shelf is waiting for its first book</string>
     <string name="library_empty_message">Add a PDF from your phone to start reading.</string>
     <string name="library_add_first_book">Add your first book</string>
+    <string name="library_tips_title">What you can do with Varagh</string>
+    <string name="library_tip_import_title">Bring your own PDFs</string>
+    <string name="library_tip_import_body">Files stay on your phone. Nothing is uploaded.</string>
+    <string name="library_tip_themes_title">Easy on the eyes</string>
+    <string name="library_tip_themes_body">Sepia, dark and night pages, plus a warm-light filter.</string>
+    <string name="library_tip_streak_title">Build a reading habit</string>
+    <string name="library_tip_streak_body">Track pages, minutes and your daily reading streak.</string>
 </resources>

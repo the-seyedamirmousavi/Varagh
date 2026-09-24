@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fa">
     <string name="library_title">کتابخانه</string>
-    <string name="library_empty_title">کتابخانه‌تان خالی است</string>
+    <string name="library_empty_title">قفسه‌تان منتظر اولین کتاب است</string>
     <string name="library_empty_message">یک فایل PDF از گوشی‌تان اضافه کنید تا خواندن را شروع کنید.</string>
     <string name="library_add_first_book">افزودن اولین کتاب</string>
+    <string name="library_tips_title">با ورق چه می‌توانید بکنید؟</string>
+    <string name="library_tip_import_title">PDFهای خودتان را بیاورید</string>
+    <string name="library_tip_import_body">فایل‌ها روی گوشی خودتان می‌مانند و جایی آپلود نمی‌شوند.</string>
+    <string name="library_tip_themes_title">راحت برای چشم</string>
+    <string name="library_tip_themes_body">رنگ کاغذی، تیره و شب، همراه با فیلتر نور گرم.</string>
+    <string name="library_tip_streak_title">عادت کتاب‌خوانی بسازید</string>
+    <string name="library_tip_streak_body">صفحه‌ها، دقیقه‌ها و روزهای پیاپی مطالعه‌تان را دنبال کنید.</string>
 </resources>

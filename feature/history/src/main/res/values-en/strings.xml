@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="history_title">History</string>
-    <string name="history_empty_title">No reading history yet</string>
-    <string name="history_empty_message">Books you read and your reading stats will show up here.</string>
+    <string name="history_this_year">This year</string>
+    <string name="history_streak_days">%1$s-day streak</string>
+    <string name="history_stat_books">Books</string>
+    <string name="history_stat_pages">Pages</string>
+    <string name="history_stat_minutes">Minutes</string>
+    <string name="history_empty_title">Your reading story starts here</string>
+    <string name="history_empty_message">Books you read, your reading time and your streak will collect here.</string>
 </resources>

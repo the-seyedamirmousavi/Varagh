@@ -1,7 +1,7 @@
 package com.mid.varagh.core.designsystem.icon
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.automirrored.outlined.MenuBook
 import androidx.compose.material.icons.filled.Add
@@ -10,7 +10,12 @@ import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.AutoStories
 import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.icons.outlined.Contrast
+import androidx.compose.material.icons.outlined.FileOpen
+import androidx.compose.material.icons.outlined.LocalFireDepartment
+import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.People
 import androidx.compose.material.icons.outlined.Person
@@ -29,7 +34,12 @@ object VaraghIcons {
     val Settings = Icons.Filled.Settings
     val SettingsOutlined = Icons.Outlined.Settings
     val Add = Icons.Filled.Add
-    val Back = Icons.AutoMirrored.Filled.ArrowBack
+    val Back = Icons.AutoMirrored.Filled.ArrowBackIos
     val Bookmark = Icons.Filled.Bookmark
     val BookmarkBorder = Icons.Outlined.BookmarkBorder
+    val Streak = Icons.Outlined.LocalFireDepartment
+    val Import = Icons.Outlined.FileOpen
+    val ReadingTheme = Icons.Outlined.Contrast
+    val Time = Icons.Outlined.Timer
+    val Pages = Icons.Outlined.AutoStories
 }
