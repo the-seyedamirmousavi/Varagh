@@ -6,6 +6,10 @@ plugins {
 
 android {
     namespace = "com.mid.varagh.core.database"
+
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {

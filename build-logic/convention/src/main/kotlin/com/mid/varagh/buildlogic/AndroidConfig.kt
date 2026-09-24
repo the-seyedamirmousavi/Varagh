@@ -4,6 +4,7 @@ import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
+import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.withType
 
 internal fun Project.configureAndroidApplication(extension: ApplicationExtension) = with(extension) {
@@ -17,9 +18,11 @@ internal fun Project.configureAndroidApplication(extension: ApplicationExtension
     compileOptions {
         sourceCompatibility = JAVA_VERSION
         targetCompatibility = JAVA_VERSION
+        isCoreLibraryDesugaringEnabled = true
     }
     testOptions.unitTests.isIncludeAndroidResources = true
     testOptions.unitTests.isReturnDefaultValues = true
+    configureDesugaring()
     configureTests()
     configureKotlin()
 }
@@ -33,11 +36,20 @@ internal fun Project.configureAndroidLibrary(extension: LibraryExtension) = with
     compileOptions {
         sourceCompatibility = JAVA_VERSION
         targetCompatibility = JAVA_VERSION
+        isCoreLibraryDesugaringEnabled = true
     }
     testOptions.unitTests.isIncludeAndroidResources = true
     testOptions.unitTests.isReturnDefaultValues = true
+    configureDesugaring()
     configureTests()
     configureKotlin()
+}
+
+/** java.time (streaks, stats by month) must work on API 24-25. */
+private fun Project.configureDesugaring() {
+    dependencies {
+        add("coreLibraryDesugaring", libs.lib("android-desugarJdkLibs"))
+    }
 }
 
 private fun Project.configureTests() {

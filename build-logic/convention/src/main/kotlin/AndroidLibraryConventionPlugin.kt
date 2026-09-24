@@ -20,6 +20,9 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             add("testImplementation", libs.lib("robolectric"))
             add("testImplementation", libs.lib("androidx-test-core"))
             add("testImplementation", libs.lib("androidx-test-ext-junit"))
+            add("androidTestImplementation", libs.lib("androidx-test-runner"))
+            add("androidTestImplementation", libs.lib("androidx-test-core"))
+            add("androidTestImplementation", libs.lib("androidx-test-ext-junit"))
         }
     }
 }
