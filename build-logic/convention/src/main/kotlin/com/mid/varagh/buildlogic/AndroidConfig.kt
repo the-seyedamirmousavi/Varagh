@@ -44,5 +44,7 @@ private fun Project.configureTests() {
     tasks.withType<Test>().configureEach {
         // Robolectric + Compose tests are memory hungry.
         maxHeapSize = "2g"
+        // AGP generates unit-test resources even for modules without tests yet.
+        failOnNoDiscoveredTests.set(false)
     }
 }
