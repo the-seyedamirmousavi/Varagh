@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.mid.varagh.core.designsystem.theme.VaraghDimens
 
 /** Icon tile + title + one-line explanation. Used for onboarding tips and settings rows. */
 @Composable
@@ -34,7 +35,7 @@ fun VaraghFeatureRow(
             shape = MaterialTheme.shapes.small,
             color = if (highlight) MaterialTheme.colorScheme.tertiaryContainer else MaterialTheme.colorScheme.surfaceVariant,
             contentColor = if (highlight) MaterialTheme.colorScheme.onTertiaryContainer else MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.size(52.dp),
+            modifier = Modifier.size(VaraghDimens.IconTile),
         ) {
             Box(contentAlignment = Alignment.Center) {
                 Icon(icon, contentDescription = null, modifier = Modifier.size(26.dp))

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Brand canvas; must match Canvas / NightCanvas in core/designsystem Color.kt. -->
     <color name="varagh_window_background">#FFF7F7F7</color>
+    <!-- Brand launcher background: FitSho/Timeboxing charcoal. -->
+    <color name="ic_launcher_background">#FF2B2B2B</color>
 </resources>

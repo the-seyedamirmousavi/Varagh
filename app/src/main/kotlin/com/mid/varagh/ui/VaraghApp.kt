@@ -7,18 +7,18 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,6 +39,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.mid.varagh.core.designsystem.motion.VaraghMotion
+import com.mid.varagh.core.designsystem.theme.VaraghDimens
+import com.mid.varagh.core.designsystem.theme.VaraghSpacing
 import com.mid.varagh.core.model.FeatureFlags
 import com.mid.varagh.feature.history.navigation.historyScreen
 import com.mid.varagh.feature.library.navigation.LibraryRoute
@@ -113,9 +115,21 @@ internal fun VaraghBottomBar(
         unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
         unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
     )
-    Column(modifier.testTag("bottom_bar")) {
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-        NavigationBar(containerColor = MaterialTheme.colorScheme.surface, tonalElevation = 0.dp) {
+    // Floating white rounded bar over the grey canvas, as in FitSho.
+    Surface(
+        modifier = modifier
+            .testTag("bottom_bar")
+            .navigationBarsPadding()
+            .padding(horizontal = VaraghSpacing.ScreenGutter, vertical = VaraghSpacing.Small),
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surface,
+        shadowElevation = VaraghDimens.BarElevation,
+    ) {
+        NavigationBar(
+            containerColor = MaterialTheme.colorScheme.surface,
+            tonalElevation = 0.dp,
+            windowInsets = WindowInsets(0),
+        ) {
             destinations.forEach { destination ->
                 val selected = currentDestination.isOnTopLevel(destination)
                 val label = stringResource(destination.labelRes)

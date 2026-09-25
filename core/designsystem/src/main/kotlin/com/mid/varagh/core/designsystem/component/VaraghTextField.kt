@@ -3,6 +3,7 @@ package com.mid.varagh.core.designsystem.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -12,8 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.mid.varagh.core.designsystem.theme.VaraghDimens
 
-/** Label above a borderless, grey-filled, 14dp-rounded field. */
+/** Label above a borderless, grey-filled, 12dp-rounded field (the brand input). */
 @Composable
 fun VaraghTextField(
     value: String,
@@ -32,7 +34,9 @@ fun VaraghTextField(
         TextField(
             value = value,
             onValueChange = onValueChange,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = VaraghDimens.FieldMinHeight),
             placeholder = placeholder?.let { { Text(it) } },
             singleLine = singleLine,
             minLines = minLines,

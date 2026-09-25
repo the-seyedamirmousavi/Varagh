@@ -20,9 +20,12 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import com.mid.varagh.core.designsystem.motion.pressScale
+import com.mid.varagh.core.designsystem.theme.VaraghDimens
+import com.mid.varagh.core.designsystem.theme.VaraghPillShape
 
 /**
- * Near-black, 20dp-rounded, 56dp tall primary action with a springy press and a light haptic tick.
+ * Charcoal pill, 56dp tall: the brand's primary button (same as FitSho, 504 Daily and Timeboxing),
+ * with a springy press and a light haptic tick.
  *
  * @param inverted use on dark hero surfaces: light button with dark text.
  */
@@ -44,7 +47,7 @@ fun VaraghPrimaryButton(
             onClick()
         },
         enabled = enabled,
-        shape = MaterialTheme.shapes.medium,
+        shape = VaraghPillShape,
         colors = ButtonDefaults.buttonColors(
             containerColor = if (inverted) scheme.inverseOnSurface else scheme.primary,
             contentColor = if (inverted) scheme.inverseSurface else scheme.onPrimary,
@@ -54,7 +57,7 @@ fun VaraghPrimaryButton(
         contentPadding = PaddingValues(horizontal = 28.dp, vertical = 14.dp),
         modifier = modifier
             .pressScale(interaction)
-            .defaultMinSize(minHeight = 56.dp),
+            .defaultMinSize(minHeight = VaraghDimens.ButtonHeight),
     ) {
         if (leadingIcon != null) {
             Icon(leadingIcon, contentDescription = null, modifier = Modifier.size(22.dp))

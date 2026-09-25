@@ -4,52 +4,61 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
-// Monochrome palette: light-grey canvas, white rounded cards, near-black text and buttons,
-// grey secondary labels, grey filled inputs and a single green accent for charts/goals.
+// Shared brand palette (FitSho, 504 Daily, Timeboxing, Varagh): light-grey canvas, flat white
+// cards, charcoal buttons, near-black text, grey captions, grey filled inputs and a single green
+// accent for goals/success. Keep these hex values in sync with the other apps' colors.xml.
 // Used when dynamic colour is unavailable (API < 31) or turned off (the default).
 
+// Light
 internal val Ink = Color(0xFF111111)
 internal val Charcoal = Color(0xFF2B2B2B)
-internal val Graphite = Color(0xFF3A3A3A)
 internal val Slate = Color(0xFF8A8A8A)
-internal val Silver = Color(0xFFBDBDBD)
-internal val Mist = Color(0xFFE6E6E6)
-internal val Hairline = Color(0xFFEFEFEF)
+internal val ContainerHigh = Color(0xFFEDEDED)
+internal val Outline = Color(0xFFE6E6E6)
+internal val Hairline = Color(0xFFEEEEEE)
 internal val Field = Color(0xFFF4F4F4)
 internal val Canvas = Color(0xFFF7F7F7)
 internal val Snow = Color(0xFFFFFFFF)
 
-internal val NightCanvas = Color(0xFF0E0E0E)
-internal val NightCard = Color(0xFF1A1A1A)
+// Dark: the same monochrome, inverted.
+internal val NightCanvas = Color(0xFF0C0C0C)
+internal val NightCard = Color(0xFF181818)
 internal val NightField = Color(0xFF262626)
-internal val NightHairline = Color(0xFF2A2A2A)
-internal val NightButton = Color(0xFFEDEDED)
-internal val NightText = Color(0xFFF2F2F2)
-internal val NightSlate = Color(0xFF9E9E9E)
+internal val NightOutline = Color(0xFF2E2E2E)
+internal val NightButton = Color(0xFFF2F2F2)
+internal val NightText = Color(0xFFF4F4F4)
+internal val NightSlate = Color(0xFF9A9A9A)
 
-internal val Green = Color(0xFF2ECC40)
-internal val GreenDark = Color(0xFF4ADE5A)
-internal val Red = Color(0xFFD32F2F)
+// Accent (goals, streaks, success) and error.
+internal val Green = Color(0xFF1FB51F)
+internal val GreenContainer = Color(0xFFE9FBE9)
+internal val OnGreenContainer = Color(0xFF118A11)
+internal val GreenDark = Color(0xFF3EE03A)
+internal val GreenContainerDark = Color(0xFF10301A)
+internal val OnGreenContainerDark = Color(0xFF7EE88A)
+internal val Red = Color(0xFFC62828)
+internal val RedContainer = Color(0xFFFDECEC)
 internal val RedDark = Color(0xFFFF8A80)
+internal val RedContainerDark = Color(0xFF3A1414)
 
 val VaraghLightColors = lightColorScheme(
     primary = Charcoal,
     onPrimary = Snow,
-    primaryContainer = Mist,
+    primaryContainer = Field,
     onPrimaryContainer = Ink,
     inversePrimary = NightButton,
-    secondary = Graphite,
+    secondary = Ink,
     onSecondary = Snow,
-    secondaryContainer = Mist,
+    secondaryContainer = Field,
     onSecondaryContainer = Ink,
     tertiary = Green,
     onTertiary = Snow,
-    tertiaryContainer = Color(0xFFDDF7E0),
-    onTertiaryContainer = Color(0xFF0B3D12),
+    tertiaryContainer = GreenContainer,
+    onTertiaryContainer = OnGreenContainer,
     error = Red,
     onError = Snow,
-    errorContainer = Color(0xFFFDE2E2),
-    onErrorContainer = Color(0xFF5F1414),
+    errorContainer = RedContainer,
+    onErrorContainer = Red,
     background = Canvas,
     onBackground = Ink,
     surface = Snow,
@@ -57,13 +66,13 @@ val VaraghLightColors = lightColorScheme(
     surfaceVariant = Field,
     onSurfaceVariant = Slate,
     surfaceTint = Color.Transparent,
-    outline = Silver,
+    outline = Outline,
     outlineVariant = Hairline,
     surfaceContainerLowest = Snow,
     surfaceContainerLow = Snow,
     surfaceContainer = Snow,
     surfaceContainerHigh = Field,
-    surfaceContainerHighest = Mist,
+    surfaceContainerHighest = ContainerHigh,
     surfaceDim = Canvas,
     surfaceBright = Snow,
     inverseSurface = Charcoal,
@@ -77,18 +86,18 @@ val VaraghDarkColors = darkColorScheme(
     primaryContainer = NightField,
     onPrimaryContainer = NightText,
     inversePrimary = Charcoal,
-    secondary = Silver,
+    secondary = NightText,
     onSecondary = Ink,
     secondaryContainer = NightField,
     onSecondaryContainer = NightText,
     tertiary = GreenDark,
     onTertiary = Ink,
-    tertiaryContainer = Color(0xFF14391A),
-    onTertiaryContainer = Color(0xFFC8F5CE),
+    tertiaryContainer = GreenContainerDark,
+    onTertiaryContainer = OnGreenContainerDark,
     error = RedDark,
     onError = Ink,
-    errorContainer = Color(0xFF5F1414),
-    onErrorContainer = Color(0xFFFDE2E2),
+    errorContainer = RedContainerDark,
+    onErrorContainer = RedDark,
     background = NightCanvas,
     onBackground = NightText,
     surface = NightCard,
@@ -96,16 +105,16 @@ val VaraghDarkColors = darkColorScheme(
     surfaceVariant = NightField,
     onSurfaceVariant = NightSlate,
     surfaceTint = Color.Transparent,
-    outline = Color(0xFF5A5A5A),
-    outlineVariant = NightHairline,
+    outline = NightOutline,
+    outlineVariant = NightOutline,
     surfaceContainerLowest = NightCanvas,
     surfaceContainerLow = NightCard,
     surfaceContainer = NightCard,
     surfaceContainerHigh = NightField,
-    surfaceContainerHighest = Color(0xFF303030),
+    surfaceContainerHighest = NightOutline,
     surfaceDim = NightCanvas,
-    surfaceBright = Color(0xFF2C2C2C),
-    inverseSurface = NightText,
-    inverseOnSurface = Ink,
+    surfaceBright = NightField,
+    inverseSurface = NightField,
+    inverseOnSurface = NightText,
     scrim = Color.Black,
 )

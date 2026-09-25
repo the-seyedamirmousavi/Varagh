@@ -21,8 +21,10 @@ private fun TextStyle.vazirmatn(weight: FontWeight? = null) =
     copy(fontFamily = Vazirmatn, fontWeight = weight ?: fontWeight)
 
 /**
- * Material 3 type scale in Vazirmatn. Headings and numbers are bold for the high-contrast look;
- * body text stays regular. Sizes are in sp, so they follow the user's font scale.
+ * Brand type scale: stock Material 3 sizes, as in FitSho, 504 Daily and Timeboxing. Headings, titles
+ * and big numbers are bold; body text is regular; labels are medium. Varagh sets it in Vazirmatn
+ * because it is a Persian-first reading app (the other apps use the system font). Sizes are in sp,
+ * so they follow the user's font scale.
  */
 val VaraghTypography = Typography(
     displayLarge = Default.displayLarge.vazirmatn(FontWeight.Bold),

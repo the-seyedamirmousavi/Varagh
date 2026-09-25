@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -14,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.mid.varagh.core.designsystem.theme.VaraghPillShape
 
 /** Small green pill for goals and streaks, e.g. "🔥 3 days". The only place colour is used. */
 @Composable
@@ -24,7 +24,7 @@ fun VaraghAccentChip(
 ) {
     Surface(
         modifier = modifier,
-        shape = CircleShape,
+        shape = VaraghPillShape,
         color = MaterialTheme.colorScheme.tertiaryContainer,
         contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
     ) {

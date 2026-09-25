@@ -16,10 +16,12 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.mid.varagh.core.designsystem.theme.VaraghSpacing
 
 /**
- * High-contrast feature card: charcoal in light mode, near-white in dark mode. Use at most one per
- * screen for the main moment (empty library, "continue reading", finished-book celebration).
+ * High-contrast banner, like 504 Daily's progress header: charcoal in light mode, dark grey in dark
+ * mode, with a light button. Same 20dp corners as cards. Use at most one per screen for the main
+ * moment (empty library, "continue reading", finished-book celebration).
  */
 @Composable
 fun VaraghHeroCard(
@@ -34,12 +36,12 @@ fun VaraghHeroCard(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = MaterialTheme.shapes.extraLarge,
+        shape = MaterialTheme.shapes.large,
         color = MaterialTheme.colorScheme.inverseSurface,
         contentColor = MaterialTheme.colorScheme.inverseOnSurface,
     ) {
         Column(
-            modifier = Modifier.padding(horizontal = 24.dp, vertical = 28.dp),
+            modifier = Modifier.padding(horizontal = VaraghSpacing.XXLarge, vertical = 28.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             if (eyebrow != null) {

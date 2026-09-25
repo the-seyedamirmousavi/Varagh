@@ -20,9 +20,10 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.mid.varagh.core.designsystem.motion.pressScale
+import com.mid.varagh.core.designsystem.theme.VaraghSpacing
 
 /**
- * Flat rounded card. When [title] is set it gets a centred bold header separated from the body by
+ * Flat white card with the brand's 20dp corners. When [title] is set it gets a centred bold header separated from the body by
  * a hairline. When [onClick] is set the whole card is tappable and squishes on press.
  */
 @Composable
@@ -32,7 +33,7 @@ fun VaraghCard(
     onClick: (() -> Unit)? = null,
     containerColor: Color = MaterialTheme.colorScheme.surface,
     contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    contentPadding: PaddingValues = PaddingValues(20.dp),
+    contentPadding: PaddingValues = PaddingValues(VaraghSpacing.CardPadding),
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
     content: @Composable ColumnScope.() -> Unit,
 ) {
@@ -45,7 +46,7 @@ fun VaraghCard(
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 20.dp, vertical = 18.dp)
+                        .padding(horizontal = VaraghSpacing.CardPadding, vertical = 18.dp)
                         .semantics { heading() },
                 )
                 HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)

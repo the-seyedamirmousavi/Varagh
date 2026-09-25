@@ -16,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.mid.varagh.core.designsystem.component.VaraghAccentChip
 import com.mid.varagh.core.designsystem.component.VaraghCard
 import com.mid.varagh.core.designsystem.component.VaraghCountStat
@@ -25,6 +24,7 @@ import com.mid.varagh.core.designsystem.component.currentLocale
 import com.mid.varagh.core.designsystem.component.formatNumber
 import com.mid.varagh.core.designsystem.icon.VaraghIcons
 import com.mid.varagh.core.designsystem.motion.AppearAnimated
+import com.mid.varagh.core.designsystem.theme.VaraghSpacing
 
 /** Phase-1 shell: the stats layout with empty (zero) values. Real data arrives in phase 5. */
 @Composable
@@ -39,8 +39,8 @@ internal fun HistoryScreen(modifier: Modifier = Modifier) {
                 .fillMaxSize()
                 .padding(padding)
                 .verticalScroll(rememberScrollState())
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
+                .padding(VaraghSpacing.ScreenGutter),
+            verticalArrangement = Arrangement.spacedBy(VaraghSpacing.CardGap),
         ) {
             AppearAnimated(index = 0) {
                 VaraghCard(
@@ -54,7 +54,7 @@ internal fun HistoryScreen(modifier: Modifier = Modifier) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 20.dp),
+                            .padding(top = VaraghSpacing.XLarge),
                         horizontalArrangement = Arrangement.SpaceEvenly,
                     ) {
                         VaraghCountStat(target = 0, label = stringResource(R.string.history_stat_books), modifier = Modifier.weight(1f))
@@ -75,7 +75,7 @@ internal fun HistoryScreen(modifier: Modifier = Modifier) {
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(top = 8.dp),
+                        modifier = Modifier.padding(top = VaraghSpacing.Small),
                     )
                 }
             }

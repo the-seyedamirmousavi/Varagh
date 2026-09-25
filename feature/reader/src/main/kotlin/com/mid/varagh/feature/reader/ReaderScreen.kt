@@ -23,11 +23,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.mid.varagh.core.designsystem.component.ReadingThemeSwatch
 import com.mid.varagh.core.designsystem.component.VaraghCard
 import com.mid.varagh.core.designsystem.component.VaraghTopAppBar
 import com.mid.varagh.core.designsystem.reading.ReadingPalette
+import com.mid.varagh.core.designsystem.theme.VaraghSpacing
 import com.mid.varagh.core.model.ReadingTheme
 
 /** Phase-1 placeholder: navigation target + reading-theme preview. Real rendering lands in phase 4. */
@@ -54,8 +54,8 @@ internal fun ReaderScreen(
             Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
+                .padding(VaraghSpacing.ScreenGutter),
+            verticalArrangement = Arrangement.spacedBy(VaraghSpacing.CardGap),
         ) {
             Box(
                 modifier = Modifier
@@ -71,13 +71,13 @@ internal fun ReaderScreen(
                     style = MaterialTheme.typography.headlineSmall,
                 )
             }
-            VaraghCard(title = stringResource(R.string.reader_theme), contentPadding = PaddingValues(vertical = 16.dp)) {
+            VaraghCard(title = stringResource(R.string.reader_theme), contentPadding = PaddingValues(vertical = VaraghSpacing.Large)) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .horizontalScroll(rememberScrollState())
-                        .padding(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        .padding(horizontal = VaraghSpacing.Large),
+                    horizontalArrangement = Arrangement.spacedBy(VaraghSpacing.Small),
                 ) {
                     ReadingTheme.entries.forEach { t ->
                         ReadingThemeSwatch(

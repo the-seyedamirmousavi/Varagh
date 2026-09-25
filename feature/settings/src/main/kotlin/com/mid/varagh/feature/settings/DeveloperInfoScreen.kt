@@ -30,6 +30,7 @@ import com.mid.varagh.core.designsystem.component.VaraghStatRow
 import com.mid.varagh.core.designsystem.component.VaraghTextField
 import com.mid.varagh.core.designsystem.component.VaraghTopAppBar
 import com.mid.varagh.core.designsystem.icon.VaraghIcons
+import com.mid.varagh.core.designsystem.theme.VaraghSpacing
 import com.mid.varagh.core.model.FeatureFlags
 
 @Composable
@@ -66,8 +67,8 @@ internal fun DeveloperInfoScreen(
                 .fillMaxSize()
                 .padding(padding)
                 .verticalScroll(rememberScrollState())
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
+                .padding(VaraghSpacing.ScreenGutter),
+            verticalArrangement = Arrangement.spacedBy(VaraghSpacing.CardGap),
         ) {
             VaraghCard(title = stringResource(R.string.settings_section_build)) {
                 InfoRow(label = "USE_REMOTE_BACKEND", value = featureFlags.useRemoteBackend.toString(), valueTag = "flag_value")
@@ -104,7 +105,7 @@ private fun DesignGallery() {
         )
         VaraghStatRow(
             stats = listOf("48 min" to "Minutes", "3 days" to "Streak"),
-            modifier = Modifier.padding(top = 20.dp),
+            modifier = Modifier.padding(top = VaraghSpacing.XLarge),
         )
     }
     VaraghCard(title = "Stats") {
@@ -112,7 +113,7 @@ private fun DesignGallery() {
     }
     VaraghCard(title = "Bookmark") {
         VaraghTextField(value = note, onValueChange = { note = it }, label = "Note")
-        Row(Modifier.fillMaxWidth().padding(top = 20.dp)) {
+        Row(Modifier.fillMaxWidth().padding(top = VaraghSpacing.XLarge)) {
             VaraghPrimaryButton(
                 text = "Add bookmark",
                 onClick = {},

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Themed-icon version of the foreground: the page with its text lines cut out. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M41,32H62L70,40V73A3,3 0,0 1,67 76H41A3,3 0,0 1,38 73V35A3,3 0,0 1,41 32Z M44,49h20v2.5h-20z M44,55h20v2.5h-20z M44,61h20v2.5h-20z M44,67h12v2.5h-12z" />
+</vector>

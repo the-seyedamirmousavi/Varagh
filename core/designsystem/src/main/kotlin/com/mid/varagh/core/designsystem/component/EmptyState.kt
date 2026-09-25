@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.mid.varagh.core.designsystem.motion.rememberReducedMotion
+import com.mid.varagh.core.designsystem.theme.VaraghSpacing
 
 /**
  * Friendly empty state inside a card with an optional call to action, e.g. "Add your first book".
@@ -48,12 +49,12 @@ fun VaraghEmptyState(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(VaraghSpacing.ScreenGutter),
         contentAlignment = Alignment.Center,
     ) {
         VaraghCard(
             horizontalAlignment = Alignment.CenterHorizontally,
-            contentPadding = PaddingValues(horizontal = 24.dp, vertical = 32.dp),
+            contentPadding = PaddingValues(horizontal = VaraghSpacing.XXLarge, vertical = VaraghSpacing.XXXLarge),
         ) {
             val reducedMotion = rememberReducedMotion()
             val float by rememberInfiniteTransition(label = "emptyFloat").animateFloat(

@@ -20,10 +20,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.mid.varagh.core.designsystem.component.VaraghCard
 import com.mid.varagh.core.designsystem.component.VaraghTopAppBar
+import com.mid.varagh.core.designsystem.theme.VaraghSpacing
 import com.mid.varagh.core.model.FeatureFlags
 
 @Composable
@@ -49,12 +49,12 @@ internal fun SettingsScreen(
                 .fillMaxSize()
                 .padding(padding)
                 .verticalScroll(rememberScrollState())
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
+                .padding(VaraghSpacing.ScreenGutter),
+            verticalArrangement = Arrangement.spacedBy(VaraghSpacing.CardGap),
         ) {
             // Reading, appearance and backup sections arrive in phase 7.
             if (featureFlags.showDeveloperInfo) {
-                VaraghCard(title = stringResource(R.string.settings_section_developer), contentPadding = PaddingValues(vertical = 4.dp)) {
+                VaraghCard(title = stringResource(R.string.settings_section_developer), contentPadding = PaddingValues(vertical = VaraghSpacing.XSmall)) {
                     ListItem(
                         headlineContent = { Text(stringResource(R.string.settings_developer_info)) },
                         supportingContent = { Text(stringResource(R.string.settings_developer_info_summary)) },

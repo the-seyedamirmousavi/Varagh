@@ -13,8 +13,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import com.mid.varagh.core.designsystem.icon.VaraghIcons
+import com.mid.varagh.core.designsystem.theme.VaraghDimens
 
 /**
  * White top bar with a bold title and a soft shadow separating it from the grey canvas.
@@ -43,7 +43,7 @@ fun VaraghTopAppBar(
     val titleContent: @Composable () -> Unit = {
         Text(
             text = title,
-            style = MaterialTheme.typography.headlineSmall,
+            style = MaterialTheme.typography.titleLarge,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
         )
@@ -57,7 +57,7 @@ fun VaraghTopAppBar(
             navigationIcon()
         }
     }
-    Surface(modifier = modifier, shadowElevation = 2.dp, color = MaterialTheme.colorScheme.surface) {
+    Surface(modifier = modifier, shadowElevation = VaraghDimens.BarElevation, color = MaterialTheme.colorScheme.surface) {
         if (centered) {
             CenterAlignedTopAppBar(title = titleContent, navigationIcon = navContent, actions = actions, colors = colors)
         } else {
