@@ -42,4 +42,7 @@ data class UserPreferences(
     val warmFilter: Float = 0f,
     /** null = follow system brightness, otherwise 0.01f..1f window brightness. */
     val readerBrightness: Float? = null,
+    /** Library layout: cover grid (true) or detailed list (false). */
+    val libraryGrid: Boolean = true,
+    val librarySort: LibrarySort = LibrarySort.LAST_OPENED,
 )

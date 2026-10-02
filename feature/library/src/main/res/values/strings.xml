@@ -11,4 +11,22 @@
     <string name="library_tip_themes_body">رنگ کاغذی، تیره و شب، همراه با فیلتر نور گرم.</string>
     <string name="library_tip_streak_title">عادت کتاب‌خوانی بسازید</string>
     <string name="library_tip_streak_body">صفحه‌ها، دقیقه‌ها و روزهای پیاپی مطالعه‌تان را دنبال کنید.</string>
+    <string name="library_add_book">افزودن کتاب</string>
+    <string name="library_search">جست‌وجو</string>
+    <string name="library_search_hint">عنوان یا نویسنده</string>
+    <string name="library_clear_search">پاک کردن جست‌وجو</string>
+    <string name="library_sort">مرتب‌سازی</string>
+    <string name="library_sort_last_opened">آخرین باز شده</string>
+    <string name="library_sort_title">عنوان</string>
+    <string name="library_sort_added">تاریخ افزودن</string>
+    <string name="library_show_list">نمایش فهرستی</string>
+    <string name="library_show_grid">نمایش شبکه‌ای</string>
+    <string name="library_filter_all">همه</string>
+    <string name="library_no_results_title">کتابی پیدا نشد</string>
+    <string name="library_no_results_message">عبارت دیگری را جست‌وجو کنید یا فیلتر را بردارید.</string>
+    <string name="library_added">«%1$s» به کتابخانه اضافه شد</string>
+    <string name="library_duplicate">«%1$s» از قبل در کتابخانه هست</string>
+    <string name="library_open_book">خواندن %1$s</string>
+    <string name="library_book_details">جزئیات کتاب</string>
+    <string name="library_percent">٪%1$s</string>
 </resources>

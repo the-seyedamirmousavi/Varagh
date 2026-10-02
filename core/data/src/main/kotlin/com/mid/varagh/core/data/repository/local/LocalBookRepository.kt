@@ -79,6 +79,8 @@ class LocalBookRepository @Inject constructor(
     override suspend fun updateFileInfo(bookId: Long, pageCount: Int, coverPath: String?) =
         bookDao.updateFileInfo(bookId, pageCount, coverPath)
 
+    override suspend fun updateFileUri(bookId: Long, fileUri: String) = bookDao.updateFileUri(bookId, fileUri)
+
     override suspend fun setStatus(bookId: Long, status: ReadingStatus) = transaction {
         val book = bookDao.getById(bookId) ?: return@transaction
         val now = time.nowMillis()

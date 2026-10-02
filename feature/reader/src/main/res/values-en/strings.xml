@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="reader_title">Reader</string>
-    <string name="reader_back">Back</string>
-    <string name="reader_placeholder">Book #%1$d</string>
-    <string name="reader_theme">Page colour</string>
+    <string name="reader_page_description">Page %1$d of %2$d</string>
+    <string name="reader_page_of">Page %1$s of %2$s</string>
+    <string name="reader_page_number">Page %1$s</string>
+    <string name="reader_page_slider">Move between pages</string>
+    <string name="reader_cannot_open">Can\'t open this book</string>
+    <string name="reader_locate_file">Locate the file</string>
+    <string name="reader_add_bookmark">Bookmark this page</string>
+    <string name="reader_remove_bookmark">Remove bookmark from this page</string>
+    <string name="reader_bookmarks">Bookmarks</string>
+    <string name="reader_no_bookmarks">No bookmarks yet. Use the bookmark button at the top to add one.</string>
+    <string name="reader_bookmark_note">Note for this page</string>
+    <string name="reader_edit_note">Edit note</string>
+    <string name="reader_settings">Reading settings</string>
+    <string name="reader_go_to_page">Go to page</string>
+    <string name="reader_page_range">Page number (1 to %1$d)</string>
+    <string name="reader_go">Go</string>
+    <string name="reader_page_color">Page colour</string>
+    <string name="reader_custom_background">Background colour</string>
+    <string name="reader_custom_text">Text colour</string>
+    <string name="reader_images_note">Pictures inside the book are recoloured together with the page.</string>
+    <string name="reader_layout">Layout</string>
+    <string name="reader_mode_vertical">Vertical scroll</string>
+    <string name="reader_mode_paged">Page by page</string>
+    <string name="reader_rtl_paging">Right-to-left page turns</string>
+    <string name="reader_rtl_paging_summary">For Persian books: the next page comes from the left.</string>
+    <string name="reader_comfort">Eye comfort</string>
+    <string name="reader_warm_light">Warm light (less blue light)</string>
+    <string name="reader_system_brightness">Use system brightness</string>
+    <string name="reader_brightness">Screen brightness</string>
+    <string name="reader_keep_screen_on">Keep the screen on while reading</string>
 </resources>

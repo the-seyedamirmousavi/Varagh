@@ -1,5 +1,6 @@
 package com.mid.varagh.core.domain.usecase
 
+import com.mid.varagh.core.domain.repository.BookFileRepository
 import com.mid.varagh.core.domain.repository.BookRepository
 import com.mid.varagh.core.domain.repository.BookmarkRepository
 import com.mid.varagh.core.model.Book
@@ -82,11 +83,20 @@ class UpdateBookDetailsUseCase @Inject constructor(
     }
 }
 
-/** Removes a book from the library. The PDF file itself is never deleted. */
+/**
+ * Removes a book from the library with its cover thumbnail and file permission.
+ * The PDF file itself is never deleted.
+ */
 class DeleteBookUseCase @Inject constructor(
     private val books: BookRepository,
+    private val files: BookFileRepository,
 ) {
-    suspend operator fun invoke(bookId: Long) = books.deleteBook(bookId)
+    suspend operator fun invoke(bookId: Long) {
+        val book = books.getBook(bookId) ?: return
+        books.deleteBook(bookId)
+        files.deleteCover(book.coverPath)
+        runCatching { files.releaseAccess(book.fileUri) }
+    }
 }
 
 /** Adds a bookmark on [page], or removes the existing one. Returns true if the page is now bookmarked. */

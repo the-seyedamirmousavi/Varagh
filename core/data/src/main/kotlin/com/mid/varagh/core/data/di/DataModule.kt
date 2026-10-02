@@ -6,6 +6,8 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import com.mid.varagh.core.data.SystemTimeProvider
+import com.mid.varagh.core.data.file.AndroidAvatarStore
+import com.mid.varagh.core.data.file.AndroidBookFileRepository
 import com.mid.varagh.core.data.repository.DataStoreUserPreferencesRepository
 import com.mid.varagh.core.data.repository.local.LocalAuthRepository
 import com.mid.varagh.core.data.repository.local.LocalBookRepository
@@ -15,6 +17,8 @@ import com.mid.varagh.core.data.repository.local.LocalSocialRepository
 import com.mid.varagh.core.data.repository.local.LocalUserProfileRepository
 import com.mid.varagh.core.domain.TimeProvider
 import com.mid.varagh.core.domain.repository.AuthRepository
+import com.mid.varagh.core.domain.repository.AvatarStore
+import com.mid.varagh.core.domain.repository.BookFileRepository
 import com.mid.varagh.core.domain.repository.BookRepository
 import com.mid.varagh.core.domain.repository.BookmarkRepository
 import com.mid.varagh.core.domain.repository.ReadingSessionRepository
@@ -74,6 +78,13 @@ internal abstract class DataBindingsModule {
 
     @Binds
     abstract fun bindTimeProvider(impl: SystemTimeProvider): TimeProvider
+
+    /** PDFs, covers and avatars stay on the device in both builds. */
+    @Binds
+    abstract fun bindBookFileRepository(impl: AndroidBookFileRepository): BookFileRepository
+
+    @Binds
+    abstract fun bindAvatarStore(impl: AndroidAvatarStore): AvatarStore
 
     /** Device settings are local in both builds (see [UserPreferencesRepository]). */
     @Binds

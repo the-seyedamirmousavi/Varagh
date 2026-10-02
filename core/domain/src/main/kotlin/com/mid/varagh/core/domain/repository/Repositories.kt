@@ -33,6 +33,7 @@ interface BookRepository {
     suspend fun addBook(book: NewBook): Long
     suspend fun updateMetadata(bookId: Long, title: String, author: String?)
     suspend fun updateFileInfo(bookId: Long, pageCount: Int, coverPath: String?)
+    suspend fun updateFileUri(bookId: Long, fileUri: String)
 
     /** Sets the status; `finishedAt` is set when moving to FINISHED and cleared otherwise. */
     suspend fun setStatus(bookId: Long, status: ReadingStatus)

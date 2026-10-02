@@ -42,7 +42,8 @@ import com.mid.varagh.core.designsystem.motion.VaraghMotion
 import com.mid.varagh.core.designsystem.theme.VaraghDimens
 import com.mid.varagh.core.designsystem.theme.VaraghSpacing
 import com.mid.varagh.core.model.FeatureFlags
-import com.mid.varagh.feature.history.navigation.historyScreen
+import com.mid.varagh.feature.history.navigation.historyScreens
+import com.mid.varagh.feature.history.navigation.navigateToBookDetail
 import com.mid.varagh.feature.library.navigation.LibraryRoute
 import com.mid.varagh.feature.library.navigation.libraryScreen
 import com.mid.varagh.feature.profile.navigation.profileScreen
@@ -90,9 +91,16 @@ fun VaraghApp(
                 popEnterTransition = { fadeIn(tween(240)) + scaleIn(tween(240), initialScale = 1.03f) },
                 popExitTransition = { fadeOut(tween(160)) + scaleOut(tween(160), targetScale = 0.97f) },
             ) {
-                libraryScreen(onOpenBook = navController::navigateToReader)
+                libraryScreen(
+                    onOpenBook = { navController.navigateToReader(it) },
+                    onOpenBookDetails = navController::navigateToBookDetail,
+                )
                 readerScreen(onBack = navController::popBackStack)
-                historyScreen()
+                historyScreens(
+                    onOpenBookDetail = navController::navigateToBookDetail,
+                    onRead = { id, page -> navController.navigateToReader(id, page) },
+                    onBack = navController::popBackStack,
+                )
                 profileScreen()
                 socialScreens(featureFlags)
                 settingsScreens(navController)

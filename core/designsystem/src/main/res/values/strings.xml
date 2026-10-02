@@ -7,4 +7,35 @@
     <string name="reading_theme_dark">تیره</string>
     <string name="reading_theme_night">شب</string>
     <string name="reading_theme_custom">سفارشی</string>
+
+    <string name="status_want_to_read">می‌خواهم بخوانم</string>
+    <string name="status_reading">در حال خواندن</string>
+    <string name="status_finished">خوانده‌شده</string>
+    <string name="status_abandoned">نیمه‌کاره رها شده</string>
+
+    <string name="common_cancel">انصراف</string>
+    <string name="common_save">ذخیره</string>
+    <string name="common_delete">حذف</string>
+    <string name="common_retry">تلاش دوباره</string>
+    <string name="common_ok">باشه</string>
+    <string name="common_back">بازگشت</string>
+    <string name="common_close">بستن</string>
+    <string name="common_more">گزینه‌های بیشتر</string>
+
+    <string name="error_generic">مشکلی پیش آمد. دوباره امتحان کنید.</string>
+    <string name="error_network">به اینترنت یا سرور دسترسی نیست. اتصال را بررسی کنید و دوباره امتحان کنید.</string>
+    <string name="error_unauthorized">نشست شما منقضی شده است. دوباره وارد شوید.</string>
+    <string name="error_file_unavailable">به فایل دسترسی نیست. ممکن است جابه‌جا یا حذف شده باشد.</string>
+    <string name="error_invalid_file">این فایل یک PDF قابل خواندن نیست (شاید رمزدار یا خراب باشد).</string>
+    <string name="error_different_file">این فایل با کتاب کتابخانه یکی نیست.</string>
+    <string name="error_invalid_backup">این فایل پشتیبان معتبر نیست.</string>
+
+    <plurals name="pages_count">
+        <item quantity="one">%1$s صفحه</item>
+        <item quantity="other">%1$s صفحه</item>
+    </plurals>
+    <plurals name="minutes_count">
+        <item quantity="one">%1$s دقیقه</item>
+        <item quantity="other">%1$s دقیقه</item>
+    </plurals>
 </resources>

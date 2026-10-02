@@ -6,4 +6,35 @@
     <string name="reading_theme_dark">Dark</string>
     <string name="reading_theme_night">Night</string>
     <string name="reading_theme_custom">Custom</string>
+
+    <string name="status_want_to_read">Want to read</string>
+    <string name="status_reading">Reading</string>
+    <string name="status_finished">Finished</string>
+    <string name="status_abandoned">Abandoned</string>
+
+    <string name="common_cancel">Cancel</string>
+    <string name="common_save">Save</string>
+    <string name="common_delete">Delete</string>
+    <string name="common_retry">Try again</string>
+    <string name="common_ok">OK</string>
+    <string name="common_back">Back</string>
+    <string name="common_close">Close</string>
+    <string name="common_more">More options</string>
+
+    <string name="error_generic">Something went wrong. Please try again.</string>
+    <string name="error_network">Can\'t reach the internet or the server. Check your connection and try again.</string>
+    <string name="error_unauthorized">Your session has expired. Please sign in again.</string>
+    <string name="error_file_unavailable">Can\'t open the file. It may have been moved or deleted.</string>
+    <string name="error_invalid_file">This file isn\'t a readable PDF (it may be password-protected or damaged).</string>
+    <string name="error_different_file">This file is not the same book as the one in your library.</string>
+    <string name="error_invalid_backup">This isn\'t a valid Varagh backup.</string>
+
+    <plurals name="pages_count">
+        <item quantity="one">%1$s page</item>
+        <item quantity="other">%1$s pages</item>
+    </plurals>
+    <plurals name="minutes_count">
+        <item quantity="one">%1$s minute</item>
+        <item quantity="other">%1$s minutes</item>
+    </plurals>
 </resources>

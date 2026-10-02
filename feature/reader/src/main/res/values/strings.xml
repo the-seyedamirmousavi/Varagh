@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fa">
-    <string name="reader_title">خواندن</string>
-    <string name="reader_back">بازگشت</string>
-    <string name="reader_placeholder">کتاب شمارهٔ %1$d</string>
-    <string name="reader_theme">رنگ صفحه</string>
+    <string name="reader_page_description">صفحهٔ %1$d از %2$d</string>
+    <string name="reader_page_of">صفحهٔ %1$s از %2$s</string>
+    <string name="reader_page_number">صفحهٔ %1$s</string>
+    <string name="reader_page_slider">جابه‌جایی بین صفحه‌ها</string>
+    <string name="reader_cannot_open">این کتاب باز نمی‌شود</string>
+    <string name="reader_locate_file">پیدا کردن فایل</string>
+    <string name="reader_add_bookmark">نشانه‌گذاری این صفحه</string>
+    <string name="reader_remove_bookmark">حذف نشانه از این صفحه</string>
+    <string name="reader_bookmarks">نشانه‌ها</string>
+    <string name="reader_no_bookmarks">هنوز صفحه‌ای را نشانه‌گذاری نکرده‌اید. با دکمهٔ نشانه بالای صفحه شروع کنید.</string>
+    <string name="reader_bookmark_note">یادداشت برای این صفحه</string>
+    <string name="reader_edit_note">ویرایش یادداشت</string>
+    <string name="reader_settings">تنظیمات خواندن</string>
+    <string name="reader_go_to_page">رفتن به صفحه</string>
+    <string name="reader_page_range">شمارهٔ صفحه (۱ تا %1$d)</string>
+    <string name="reader_go">برو</string>
+    <string name="reader_page_color">رنگ صفحه</string>
+    <string name="reader_custom_background">رنگ زمینه</string>
+    <string name="reader_custom_text">رنگ متن</string>
+    <string name="reader_images_note">رنگ تصاویر داخل کتاب هم همراه صفحه تغییر می‌کند.</string>
+    <string name="reader_layout">چیدمان</string>
+    <string name="reader_mode_vertical">پیمایش عمودی</string>
+    <string name="reader_mode_paged">ورق زدن</string>
+    <string name="reader_rtl_paging">ورق زدن راست به چپ</string>
+    <string name="reader_rtl_paging_summary">برای کتاب‌های فارسی: صفحهٔ بعد از سمت چپ می‌آید.</string>
+    <string name="reader_comfort">راحتی چشم</string>
+    <string name="reader_warm_light">نور گرم (کاهش نور آبی)</string>
+    <string name="reader_system_brightness">روشنایی سیستم</string>
+    <string name="reader_brightness">روشنایی صفحه</string>
+    <string name="reader_keep_screen_on">روشن ماندن صفحه هنگام خواندن</string>
 </resources>

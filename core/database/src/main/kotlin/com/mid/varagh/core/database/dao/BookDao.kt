@@ -88,6 +88,9 @@ interface BookDao {
     @Query("UPDATE books SET page_count = :pageCount, cover_path = :coverPath WHERE id = :id")
     suspend fun updateFileInfo(id: Long, pageCount: Int, coverPath: String?)
 
+    @Query("UPDATE books SET file_uri = :fileUri WHERE id = :id")
+    suspend fun updateFileUri(id: Long, fileUri: String)
+
     @Query("DELETE FROM books WHERE id = :id")
     suspend fun deleteById(id: Long)
 

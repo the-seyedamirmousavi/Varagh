@@ -44,6 +44,8 @@ class DataStoreUserPreferencesRepository @Inject constructor(
         val language = stringPreferencesKey("language")
         val warmFilter = floatPreferencesKey("warm_filter")
         val readerBrightness = floatPreferencesKey("reader_brightness")
+        val libraryGrid = booleanPreferencesKey("library_grid")
+        val librarySort = stringPreferencesKey("library_sort")
     }
 
     private fun Preferences.toUserPreferences(): UserPreferences {
@@ -62,6 +64,8 @@ class DataStoreUserPreferencesRepository @Inject constructor(
             language = this[Keys.language]?.let(AppLanguage::fromTag) ?: d.language,
             warmFilter = (this[Keys.warmFilter] ?: d.warmFilter).coerceIn(0f, 1f),
             readerBrightness = this[Keys.readerBrightness]?.coerceIn(MIN_BRIGHTNESS, 1f),
+            libraryGrid = this[Keys.libraryGrid] ?: d.libraryGrid,
+            librarySort = enumOrDefault(this[Keys.librarySort], d.librarySort),
         )
     }
 
@@ -76,6 +80,8 @@ class DataStoreUserPreferencesRepository @Inject constructor(
         this[Keys.dynamicColor] = p.useDynamicColor
         this[Keys.language] = p.language.tag
         this[Keys.warmFilter] = p.warmFilter.coerceIn(0f, 1f)
+        this[Keys.libraryGrid] = p.libraryGrid
+        this[Keys.librarySort] = p.librarySort.name
         val brightness = p.readerBrightness
         if (brightness == null) remove(Keys.readerBrightness) else this[Keys.readerBrightness] = brightness.coerceIn(MIN_BRIGHTNESS, 1f)
     }
