@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import com.mid.varagh.core.data.SystemTimeProvider
+import com.mid.varagh.core.data.backup.LocalBackupRepository
 import com.mid.varagh.core.data.file.AndroidAvatarStore
 import com.mid.varagh.core.data.file.AndroidBookFileRepository
 import com.mid.varagh.core.data.repository.DataStoreUserPreferencesRepository
@@ -18,6 +19,7 @@ import com.mid.varagh.core.data.repository.local.LocalUserProfileRepository
 import com.mid.varagh.core.domain.TimeProvider
 import com.mid.varagh.core.domain.repository.AuthRepository
 import com.mid.varagh.core.domain.repository.AvatarStore
+import com.mid.varagh.core.domain.repository.BackupRepository
 import com.mid.varagh.core.domain.repository.BookFileRepository
 import com.mid.varagh.core.domain.repository.BookRepository
 import com.mid.varagh.core.domain.repository.BookmarkRepository
@@ -85,6 +87,9 @@ internal abstract class DataBindingsModule {
 
     @Binds
     abstract fun bindAvatarStore(impl: AndroidAvatarStore): AvatarStore
+
+    @Binds
+    abstract fun bindBackupRepository(impl: LocalBackupRepository): BackupRepository
 
     /** Device settings are local in both builds (see [UserPreferencesRepository]). */
     @Binds

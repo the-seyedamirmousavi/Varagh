@@ -9,6 +9,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.mid.varagh.core.designsystem.theme.VaraghTheme
 import com.mid.varagh.core.model.FeatureFlags
+import com.mid.varagh.core.model.UserPreferences
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,14 +34,14 @@ class DeveloperInfoScreenTest {
     @Test
     fun developerEntryHiddenInReleaseBuilds() {
         val flags = FeatureFlags(useRemoteBackend = false, apiBaseUrl = "", isDebugBuild = false)
-        composeRule.setContent { VaraghTheme { SettingsScreen(featureFlags = flags, onOpenDeveloperInfo = {}) } }
+        composeRule.setContent { VaraghTheme { SettingsScreen(preferences = UserPreferences(), featureFlags = flags, onOpenDeveloperInfo = {}) } }
         composeRule.onNodeWithText(developerInfoLabel).assertDoesNotExist()
     }
 
     @Test
     fun developerEntryShownInDebugBuilds() {
         val flags = FeatureFlags(useRemoteBackend = false, apiBaseUrl = "", isDebugBuild = true)
-        composeRule.setContent { VaraghTheme { SettingsScreen(featureFlags = flags, onOpenDeveloperInfo = {}) } }
+        composeRule.setContent { VaraghTheme { SettingsScreen(preferences = UserPreferences(), featureFlags = flags, onOpenDeveloperInfo = {}) } }
         composeRule.onNodeWithText(developerInfoLabel).assertExists()
     }
 }

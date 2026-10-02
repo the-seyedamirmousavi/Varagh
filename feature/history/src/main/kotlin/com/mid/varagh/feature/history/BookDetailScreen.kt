@@ -217,9 +217,9 @@ private fun DetailContent(
                     book.finishedAt?.let {
                         Text(stringResource(R.string.history_finished_on, dates.date(it)), style = MaterialTheme.typography.bodyMedium)
                     }
-                    RatingBar(rating = book.rating, onRating = onRating)
                 }
             }
+            RatingBar(rating = book.rating, onRating = onRating)
             VaraghPrimaryButton(
                 text = stringResource(if (currentPage == null) R.string.detail_start_reading else R.string.detail_continue_reading),
                 onClick = { onRead(-1) },

@@ -6,4 +6,34 @@
     <string name="settings_developer_info_summary">Backend switch and API base URL of this build</string>
     <string name="settings_section_developer">Developer</string>
     <string name="settings_section_build">This build</string>
+
+    <string name="settings_section_reading">Reading</string>
+    <string name="settings_default_theme">Default page colour</string>
+    <string name="settings_reading_mode">Default layout</string>
+    <string name="settings_mode_vertical">Vertical scroll</string>
+    <string name="settings_mode_paged">Page by page</string>
+    <string name="settings_rtl_paging">Right-to-left page turns</string>
+    <string name="settings_rtl_paging_summary">In page-by-page mode the next page comes from the left, like a Persian book.</string>
+    <string name="settings_keep_screen_on">Keep the screen on while reading</string>
+
+    <string name="settings_section_appearance">Appearance</string>
+    <string name="settings_theme_system">System</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_dynamic_color">Dynamic colour</string>
+    <string name="settings_dynamic_color_summary">Take the app\'s colours from your wallpaper.</string>
+
+    <string name="settings_section_language">Language</string>
+
+    <string name="settings_section_backup">Backup</string>
+    <string name="settings_backup_summary">Saves your library, progress, bookmarks, profile and settings to one file. The PDF files themselves are not included.</string>
+    <string name="settings_backup_export">Save a backup file</string>
+    <string name="settings_backup_import">Restore from a backup file</string>
+    <string name="settings_backup_exported">Backup saved (%1$d books)</string>
+    <string name="settings_backup_imported">Restored: %1$d books, %2$d sessions, %3$d bookmarks added</string>
+
+    <string name="settings_section_about">About Varagh</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_privacy">Privacy</string>
+    <string name="settings_privacy_summary">Your PDF files never leave your phone.</string>
 </resources>

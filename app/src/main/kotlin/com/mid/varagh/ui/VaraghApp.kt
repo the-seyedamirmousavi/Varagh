@@ -71,7 +71,7 @@ fun VaraghApp(
             if (showBottomBar) {
                 VaraghBottomBar(
                     destinations = destinations,
-                    currentDestination = currentDestination,
+                    isSelected = { currentDestination.isOnTopLevel(it) },
                     onNavigate = { navController.navigateToTopLevel(it) },
                 )
             }
@@ -101,7 +101,11 @@ fun VaraghApp(
                     onRead = { id, page -> navController.navigateToReader(id, page) },
                     onBack = navController::popBackStack,
                 )
-                profileScreen()
+                profileScreen(
+                    onOpenBook = { navController.navigateToReader(it) },
+                    onOpenLibrary = { navController.navigateToTopLevel(TopLevelDestination.LIBRARY) },
+                    onSignIn = {},
+                )
                 socialScreens(featureFlags)
                 settingsScreens(navController)
             }
@@ -112,7 +116,7 @@ fun VaraghApp(
 @Composable
 internal fun VaraghBottomBar(
     destinations: List<TopLevelDestination>,
-    currentDestination: NavDestination?,
+    isSelected: (TopLevelDestination) -> Boolean,
     onNavigate: (TopLevelDestination) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -139,7 +143,7 @@ internal fun VaraghBottomBar(
             windowInsets = WindowInsets(0),
         ) {
             destinations.forEach { destination ->
-                val selected = currentDestination.isOnTopLevel(destination)
+                val selected = isSelected(destination)
                 val label = stringResource(destination.labelRes)
                 val iconScale by animateFloatAsState(
                     targetValue = if (selected) 1.12f else 1f,

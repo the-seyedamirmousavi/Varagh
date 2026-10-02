@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fa">
     <string name="profile_title">نمایه</string>
-    <string name="profile_placeholder_title">نمایهٔ کتاب‌خوانی شما</string>
-    <string name="profile_placeholder_message">نام، بیوگرافی و کتابی که در حال خواندنش هستید اینجا نمایش داده می‌شود.</string>
+    <string name="profile_default_name">کتاب‌خوان</string>
+    <string name="profile_change_photo">تغییر عکس نمایه</string>
+    <string name="profile_photo">عکس نمایه</string>
+    <string name="profile_edit">ویرایش نمایه</string>
+    <string name="profile_stat_finished">کتاب خوانده‌شده</string>
+    <string name="profile_stat_pages">صفحه</string>
+    <string name="profile_stat_streak">روز پیاپی</string>
+    <string name="profile_currently_reading">در حال خواندن</string>
+    <string name="profile_nothing_reading">الان کتابی در دست ندارید. از کتابخانه یکی را شروع کنید.</string>
+    <string name="profile_open_library">رفتن به کتابخانه</string>
+    <string name="profile_percent_read">٪%1$s خوانده شده</string>
+    <string name="profile_continue">ادامه</string>
+    <string name="profile_share">اشتراک</string>
+    <string name="profile_share_chooser">اشتراک‌گذاری کتابی که می‌خوانید</string>
+    <string name="profile_share_eyebrow">دارم می‌خوانم</string>
+    <string name="profile_app_name">ورق</string>
+    <string name="profile_public">نمایهٔ عمومی</string>
+    <string name="profile_public_summary">دیگران می‌توانند نمایه و کتابی را که می‌خوانید ببینند.</string>
+    <string name="profile_account">حساب کاربری</string>
+    <string name="profile_signed_in_as">با نام کاربری %1$s وارد شده‌اید</string>
+    <string name="profile_sign_out">خروج از حساب</string>
+    <string name="profile_sign_in">ورود یا ثبت‌نام</string>
+    <string name="profile_sign_in_summary">برای همگام‌سازی و دیدن کتاب‌خوان‌های دیگر وارد شوید.</string>
+    <string name="profile_field_name">نام</string>
+    <string name="profile_field_username">نام کاربری</string>
+    <string name="profile_username_hint">حروف انگلیسی کوچک، عدد، _ و نقطه (حداقل ۳ حرف)</string>
+    <string name="profile_field_bio">دربارهٔ من</string>
 </resources>

@@ -6,4 +6,34 @@
     <string name="settings_developer_info_summary">وضعیت اتصال به سرور و نشانی API در این نسخه</string>
     <string name="settings_section_developer">توسعه‌دهنده</string>
     <string name="settings_section_build">این نسخه</string>
+
+    <string name="settings_section_reading">خواندن</string>
+    <string name="settings_default_theme">رنگ پیش‌فرض صفحه</string>
+    <string name="settings_reading_mode">چیدمان پیش‌فرض</string>
+    <string name="settings_mode_vertical">پیمایش عمودی</string>
+    <string name="settings_mode_paged">ورق زدن</string>
+    <string name="settings_rtl_paging">ورق زدن راست به چپ</string>
+    <string name="settings_rtl_paging_summary">در حالت ورق زدن، صفحهٔ بعد از سمت چپ می‌آید (مثل کتاب فارسی).</string>
+    <string name="settings_keep_screen_on">روشن ماندن صفحه هنگام خواندن</string>
+
+    <string name="settings_section_appearance">ظاهر برنامه</string>
+    <string name="settings_theme_system">مطابق سیستم</string>
+    <string name="settings_theme_light">روشن</string>
+    <string name="settings_theme_dark">تیره</string>
+    <string name="settings_dynamic_color">رنگ‌های پویا</string>
+    <string name="settings_dynamic_color_summary">رنگ‌های برنامه از کاغذدیواری گوشی گرفته شود.</string>
+
+    <string name="settings_section_language">زبان</string>
+
+    <string name="settings_section_backup">پشتیبان‌گیری</string>
+    <string name="settings_backup_summary">کتابخانه، پیشرفت، نشانه‌ها، نمایه و تنظیمات در یک فایل ذخیره می‌شود. خود فایل‌های PDF در پشتیبان نیستند.</string>
+    <string name="settings_backup_export">ذخیرهٔ پشتیبان در فایل</string>
+    <string name="settings_backup_import">بازگردانی از فایل پشتیبان</string>
+    <string name="settings_backup_exported">پشتیبان ذخیره شد (%1$d کتاب)</string>
+    <string name="settings_backup_imported">بازگردانی شد: %1$d کتاب، %2$d جلسه، %3$d نشانهٔ جدید</string>
+
+    <string name="settings_section_about">دربارهٔ ورق</string>
+    <string name="settings_version">نسخه</string>
+    <string name="settings_privacy">حریم خصوصی</string>
+    <string name="settings_privacy_summary">فایل‌های PDF هیچ‌وقت از گوشی شما خارج نمی‌شوند.</string>
 </resources>

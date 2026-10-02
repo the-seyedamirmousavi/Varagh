@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.mid.varagh.core.domain.TimeProvider
 import com.mid.varagh.core.domain.VaraghException
+import com.mid.varagh.core.domain.repository.BookFileRepository
 import com.mid.varagh.core.domain.repository.BookRepository
 import com.mid.varagh.core.domain.repository.BookmarkRepository
 import com.mid.varagh.core.domain.repository.UserPreferencesRepository
@@ -63,6 +64,7 @@ class ReaderViewModel @Inject constructor(
     private val recordSession: RecordReadingSessionUseCase,
     private val toggleBookmark: ToggleBookmarkUseCase,
     private val relinkFile: RelinkBookFileUseCase,
+    private val files: BookFileRepository,
     private val preferencesRepository: UserPreferencesRepository,
     private val time: TimeProvider,
 ) : ViewModel() {
@@ -104,6 +106,10 @@ class ReaderViewModel @Inject constructor(
                 _document.value?.close()
                 _document.value = doc
                 if (book.pageCount != doc.pageCount) books.updateFileInfo(bookId, doc.pageCount, book.coverPath)
+                if (book.coverPath == null) {
+                    // e.g. restored from a backup on a new phone: render the cover now that the file is readable.
+                    launch { files.renderCover(book.fileUri, book.fileHash)?.let { books.updateFileInfo(bookId, doc.pageCount, it) } }
+                }
                 _uiState.update {
                     it.copy(
                         load = ReaderLoadState.Ready,
