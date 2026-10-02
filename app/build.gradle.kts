@@ -83,9 +83,6 @@ dependencies {
     implementation(libs.androidx.hilt.work)
     ksp(libs.androidx.hilt.compiler)
 
-    // Detects Activity/ViewModel/bitmap leaks automatically in debug builds only.
-    debugImplementation(libs.leakcanary.android)
-
     testImplementation(libs.androidx.navigation.testing)
     testImplementation(libs.hilt.android.testing)
     kspTest(libs.hilt.compiler)

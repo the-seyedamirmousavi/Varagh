@@ -40,3 +40,7 @@ google-services.json
 
 # Release signing secrets (see README)
 keystore.properties
+
+# Built APKs
+/dist
+/app/release
