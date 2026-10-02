@@ -26,9 +26,6 @@ data class FeatureFlags(
     /** Background synchronisation of metadata, progress and sessions (never PDF files). */
     val isSyncEnabled: Boolean get() = useRemoteBackend
 
-    /** Debug-only screen that shows the flag values. */
-    val showDeveloperInfo: Boolean get() = isDebugBuild
-
     companion object {
         /** Offline defaults, handy for previews and tests. */
         val Offline = FeatureFlags(useRemoteBackend = false, apiBaseUrl = "", isDebugBuild = false)

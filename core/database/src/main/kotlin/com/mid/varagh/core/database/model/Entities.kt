@@ -34,6 +34,8 @@ data class BookEntity(
     @ColumnInfo(name = "remote_id") val remoteId: String?,
     @ColumnInfo(name = "updated_at") val updatedAt: Long,
     @ColumnInfo(name = "sync_state") val syncState: SyncState = SyncState.SYNCED,
+    /** Server library-entry id (PATCH/DELETE /library/{id}); [remoteId] is the catalog book id. Added in v2. */
+    @ColumnInfo(name = "remote_entry_id") val remoteEntryId: String? = null,
 )
 
 @Entity(

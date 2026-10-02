@@ -50,6 +50,9 @@ import com.mid.varagh.feature.profile.navigation.profileScreen
 import com.mid.varagh.feature.reader.navigation.navigateToReader
 import com.mid.varagh.feature.reader.navigation.readerScreen
 import com.mid.varagh.feature.settings.navigation.settingsScreens
+import com.mid.varagh.feature.social.ReadersOfBookSection
+import com.mid.varagh.feature.social.navigation.navigateToLogin
+import com.mid.varagh.feature.social.navigation.navigateToPublicProfile
 import com.mid.varagh.feature.social.navigation.socialScreens
 import com.mid.varagh.navigation.TopLevelDestination
 
@@ -100,14 +103,19 @@ fun VaraghApp(
                     onOpenBookDetail = navController::navigateToBookDetail,
                     onRead = { id, page -> navController.navigateToReader(id, page) },
                     onBack = navController::popBackStack,
+                    readersOfBook = if (featureFlags.isSocialEnabled) {
+                        { remoteId -> ReadersOfBookSection(remoteId, onOpenReader = navController::navigateToPublicProfile) }
+                    } else {
+                        null
+                    },
                 )
                 profileScreen(
                     onOpenBook = { navController.navigateToReader(it) },
                     onOpenLibrary = { navController.navigateToTopLevel(TopLevelDestination.LIBRARY) },
-                    onSignIn = {},
+                    onSignIn = { if (featureFlags.isAuthEnabled) navController.navigateToLogin() },
                 )
-                socialScreens(featureFlags)
-                settingsScreens(navController)
+                socialScreens(featureFlags, navController)
+                settingsScreens()
             }
         }
     }

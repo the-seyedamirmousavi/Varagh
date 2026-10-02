@@ -1,8 +1,13 @@
+pluginManagement {
+    repositories {
+        maven("https://maven.myket.ir") { name = "MyketMirror" }
+    }
+}
+
 dependencyResolutionManagement {
     repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
+        // Same mirror as the root settings.gradle.kts (Google Maven + Central + Plugin Portal).
+        maven("https://maven.myket.ir") { name = "MyketMirror" }
     }
     versionCatalogs {
         create("libs") {

@@ -195,6 +195,8 @@ private fun ReadyReader(
     var noteFor by remember { mutableStateOf<NoteTarget?>(null) }
     var jump by remember { mutableStateOf<JumpRequest?>(null) }
     val palette = ReadingPalette.forTheme(preferences.readingTheme, preferences.customReadingColors)
+    // Switching layout mid-book continues from the current page, not from where the book was opened.
+    val startPage = remember(preferences.readingMode) { state.currentPage }
 
     KeepScreenOn(preferences.keepScreenOn)
     WindowBrightness(preferences.readerBrightness)
@@ -209,6 +211,7 @@ private fun ReadyReader(
             ReadingMode.VERTICAL_SCROLL -> VerticalReader(
                 document = document,
                 state = state,
+                startPage = startPage,
                 palette = palette,
                 jumpRequest = jump,
                 onJumpHandled = { jump = null },
@@ -218,6 +221,7 @@ private fun ReadyReader(
             ReadingMode.HORIZONTAL_PAGED -> PagedReader(
                 document = document,
                 state = state,
+                startPage = startPage,
                 palette = palette,
                 rightToLeft = preferences.rightToLeftPaging,
                 jumpRequest = jump,

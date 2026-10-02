@@ -39,7 +39,7 @@ abstract class VaraghDatabase : RoomDatabase() {
     abstract fun userProfileDao(): UserProfileDao
 
     companion object {
-        const val VERSION = 1
+        const val VERSION = 2
         const val NAME = "varagh.db"
     }
 }

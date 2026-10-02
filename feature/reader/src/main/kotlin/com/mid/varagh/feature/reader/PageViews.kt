@@ -93,6 +93,7 @@ internal fun PdfPage(
 internal fun VerticalReader(
     document: PdfDocument,
     state: ReaderUiState,
+    startPage: Int,
     palette: ReadingPalette,
     jumpRequest: JumpRequest?,
     onJumpHandled: () -> Unit,
@@ -100,7 +101,7 @@ internal fun VerticalReader(
     onTap: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val listState = rememberLazyListState(initialFirstVisibleItemIndex = state.initialPage)
+    val listState = rememberLazyListState(initialFirstVisibleItemIndex = startPage)
     val zoom = rememberZoomState(allowVerticalPan = false, key = document)
     val scope = rememberCoroutineScope()
 
@@ -162,6 +163,7 @@ internal fun VerticalReader(
 internal fun PagedReader(
     document: PdfDocument,
     state: ReaderUiState,
+    startPage: Int,
     palette: ReadingPalette,
     rightToLeft: Boolean,
     jumpRequest: JumpRequest?,
@@ -170,7 +172,7 @@ internal fun PagedReader(
     onTap: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val pagerState = rememberPagerState(initialPage = state.initialPage) { document.pageCount }
+    val pagerState = rememberPagerState(initialPage = startPage) { document.pageCount }
     val scope = rememberCoroutineScope()
     val zoom = rememberZoomState(allowVerticalPan = true, key = pagerState.currentPage)
 

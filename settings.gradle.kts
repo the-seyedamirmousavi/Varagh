@@ -1,15 +1,10 @@
+// All dependencies come from the Myket mirror, which proxies Google Maven, Maven Central and the
+// Gradle Plugin Portal. The default repositories are intentionally not used (dl.google.com is
+// unreliable on our network). To switch mirrors, change the URL here and in build-logic/settings.gradle.kts.
 pluginManagement {
     includeBuild("build-logic")
     repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
-        gradlePluginPortal()
+        maven("https://maven.myket.ir") { name = "MyketMirror" }
     }
 }
 plugins {
@@ -18,8 +13,7 @@ plugins {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
-        mavenCentral()
+        maven("https://maven.myket.ir") { name = "MyketMirror" }
     }
 }
 

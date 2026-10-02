@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="social_title">Readers</string>
+    <string name="social_discover">Find readers</string>
     <string name="social_empty_title">You aren\'t following anyone yet</string>
     <string name="social_empty_message">Discover other readers and see what they are reading.</string>
+    <string name="social_sign_in_title">Sign in to see other readers</string>
+    <string name="social_sign_in_message">With an account you can see what your friends are reading. Your PDF files are never uploaded.</string>
+    <string name="social_sign_in">Sign in</string>
+    <string name="social_register">Create account</string>
+    <string name="social_started">%1$s started reading</string>
+    <string name="social_reading">%1$s is reading</string>
+    <string name="social_finished">%1$s finished</string>
+    <string name="social_find_by_username">Username</string>
+    <string name="social_search">Search</string>
+    <string name="social_no_such_reader">No reader with that username.</string>
+    <string name="social_books_finished">%1$s books read</string>
+    <string name="social_follow">Follow</string>
+    <string name="social_unfollow">Unfollow</string>
+    <string name="social_currently_reading">Currently reading</string>
+    <string name="social_readers_of_book">Readers of this book</string>
+    <string name="social_no_readers">Nobody else is reading this book yet.</string>
+    <string name="social_offline_title">You\'re offline</string>
+    <string name="social_error_title">Couldn\'t load</string>
+    <string name="social_email">Email</string>
+    <string name="social_password">Password</string>
+    <string name="social_password_hint">At least %1$d characters</string>
+    <string name="social_username">Username</string>
+    <string name="social_username_hint">Lower-case letters, digits, _ and .</string>
+    <string name="social_wrong_credentials">Wrong email or password.</string>
+    <string name="social_have_account">Have an account? Sign in</string>
+    <string name="social_no_account">No account? Create one</string>
+    <string name="social_privacy_note">Only book details (title, author), progress and reading stats are synced; your PDF files never leave your phone.</string>
 </resources>

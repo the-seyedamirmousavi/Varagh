@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.mid.varagh.core.domain.repository.BackupRepository
 import com.mid.varagh.core.domain.repository.BackupSummary
 import com.mid.varagh.core.domain.repository.UserPreferencesRepository
-import com.mid.varagh.core.model.FeatureFlags
 import com.mid.varagh.core.model.UserPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -27,7 +26,6 @@ sealed interface SettingsEvent {
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    val featureFlags: FeatureFlags,
     private val preferencesRepository: UserPreferencesRepository,
     private val backups: BackupRepository,
 ) : ViewModel() {

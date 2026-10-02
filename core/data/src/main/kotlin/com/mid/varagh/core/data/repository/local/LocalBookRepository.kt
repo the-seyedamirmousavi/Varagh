@@ -20,13 +20,22 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-/** Room-only [BookRepository]. Nothing to sync, so rows are written as SYNCED and hard-deleted. */
-class LocalBookRepository @Inject constructor(
-    private val bookDao: BookDao,
-    private val progressDao: ReadingProgressDao,
-    private val transaction: TransactionRunner,
-    private val time: TimeProvider,
+/**
+ * Room-only [BookRepository]. Nothing to sync, so rows are written as SYNCED and hard-deleted.
+ * `RemoteBookRepository` reuses this logic and only changes [writeState], [afterWrite] and deletion.
+ */
+open class LocalBookRepository @Inject constructor(
+    protected val bookDao: BookDao,
+    protected val progressDao: ReadingProgressDao,
+    protected val transaction: TransactionRunner,
+    protected val time: TimeProvider,
 ) : BookRepository {
+
+    /** Sync state written with every edit. */
+    protected open val writeState: SyncState get() = SyncState.SYNCED
+
+    /** Called after every successful edit (the remote build schedules a sync here). */
+    protected open suspend fun afterWrite() = Unit
 
     override fun observeLibrary(query: LibraryQuery): Flow<List<BookWithProgress>> =
         bookDao.observeLibrary(escapeLike(query.search), query.status, query.sort.name)
@@ -63,7 +72,8 @@ class LocalBookRepository @Inject constructor(
             rating = null,
             remoteId = tombstone?.remoteId,
             updatedAt = now,
-            syncState = SyncState.SYNCED,
+            syncState = writeState,
+            remoteEntryId = tombstone?.remoteEntryId,
         )
         if (tombstone != null) {
             bookDao.update(entity)
@@ -71,32 +81,40 @@ class LocalBookRepository @Inject constructor(
         } else {
             bookDao.insert(entity)
         }
-    }
+    }.also { afterWrite() }
 
-    override suspend fun updateMetadata(bookId: Long, title: String, author: String?) =
-        bookDao.updateMetadata(bookId, title, author, time.nowMillis(), SyncState.SYNCED)
+    override suspend fun updateMetadata(bookId: Long, title: String, author: String?) {
+        bookDao.updateMetadata(bookId, title, author, time.nowMillis(), writeState)
+        afterWrite()
+    }
 
     override suspend fun updateFileInfo(bookId: Long, pageCount: Int, coverPath: String?) =
         bookDao.updateFileInfo(bookId, pageCount, coverPath)
 
     override suspend fun updateFileUri(bookId: Long, fileUri: String) = bookDao.updateFileUri(bookId, fileUri)
 
-    override suspend fun setStatus(bookId: Long, status: ReadingStatus) = transaction {
-        val book = bookDao.getById(bookId) ?: return@transaction
-        val now = time.nowMillis()
-        val finishedAt = when {
-            status != ReadingStatus.FINISHED -> null
-            book.status == ReadingStatus.FINISHED -> book.finishedAt ?: now
-            else -> now
+    override suspend fun setStatus(bookId: Long, status: ReadingStatus) {
+        transaction {
+            val book = bookDao.getById(bookId) ?: return@transaction
+            val now = time.nowMillis()
+            val finishedAt = when {
+                status != ReadingStatus.FINISHED -> null
+                book.status == ReadingStatus.FINISHED -> book.finishedAt ?: now
+                else -> now
+            }
+            bookDao.updateStatus(bookId, status, finishedAt, now, writeState)
         }
-        bookDao.updateStatus(bookId, status, finishedAt, now, SyncState.SYNCED)
+        afterWrite()
     }
 
-    override suspend fun setRating(bookId: Long, rating: Int?) =
-        bookDao.updateRating(bookId, rating, time.nowMillis(), SyncState.SYNCED)
+    override suspend fun setRating(bookId: Long, rating: Int?) {
+        bookDao.updateRating(bookId, rating, time.nowMillis(), writeState)
+        afterWrite()
+    }
 
+    /** Opening a book is local bookkeeping and is never synced on its own. */
     override suspend fun markOpened(bookId: Long) =
-        bookDao.updateLastOpened(bookId, time.nowMillis(), SyncState.SYNCED)
+        bookDao.updateLastOpened(bookId, time.nowMillis(), bookDao.getById(bookId)?.syncState ?: SyncState.SYNCED)
 
     override suspend fun saveProgress(bookId: Long, page: Int) {
         val book = bookDao.getById(bookId) ?: return
@@ -106,10 +124,14 @@ class LocalBookRepository @Inject constructor(
                 currentPage = page,
                 percent = ReadingProgress.percentOf(page, book.pageCount),
                 updatedAt = time.nowMillis(),
-                syncState = SyncState.SYNCED,
+                syncState = writeState,
             ),
         )
+        onProgressSaved(bookId)
     }
+
+    /** Hook for the remote build, which pushes progress together with its library entry. */
+    protected open suspend fun onProgressSaved(bookId: Long) = Unit
 
     override suspend fun deleteBook(bookId: Long) = bookDao.deleteById(bookId)
 }

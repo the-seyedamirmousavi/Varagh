@@ -52,8 +52,20 @@ class FileUseCasesTest {
     fun `import detects duplicates before rendering a cover`() = runTest {
         coEvery { files.inspect(any()) } returns info
         coEvery { books.findByHash("abc") } returns book
+        coEvery { files.isReadable("content://old") } returns true
         assertEquals(ImportResult.Duplicate(book), import("content://copy"))
         coVerify(exactly = 0) { files.renderCover(any(), any()) }
+        coVerify { files.releaseAccess("content://copy") }
+    }
+
+    @Test
+    fun `re-importing a book whose file went missing repairs it`() = runTest {
+        coEvery { files.inspect(any()) } returns info
+        coEvery { books.findByHash("abc") } returns book
+        coEvery { files.isReadable("content://old") } returns false
+        assertEquals(ImportResult.Duplicate(book), import("content://found-again"))
+        coVerify { books.updateFileUri(5, "content://found-again") }
+        coVerify(exactly = 0) { files.releaseAccess(any()) }
     }
 
     @Test

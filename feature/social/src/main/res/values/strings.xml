@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fa">
     <string name="social_title">کتاب‌خوان‌ها</string>
+    <string name="social_discover">پیدا کردن کتاب‌خوان‌ها</string>
     <string name="social_empty_title">هنوز کسی را دنبال نمی‌کنید</string>
     <string name="social_empty_message">کتاب‌خوان‌های دیگر را پیدا کنید و ببینید چه می‌خوانند.</string>
+    <string name="social_sign_in_title">برای دیدن کتاب‌خوان‌ها وارد شوید</string>
+    <string name="social_sign_in_message">با یک حساب، کتاب‌هایی را که دوستانتان می‌خوانند می‌بینید. فایل‌های PDF شما هیچ‌وقت آپلود نمی‌شوند.</string>
+    <string name="social_sign_in">ورود</string>
+    <string name="social_register">ساخت حساب</string>
+    <string name="social_started">%1$s شروع به خواندن کرد</string>
+    <string name="social_reading">%1$s در حال خواندن است</string>
+    <string name="social_finished">%1$s این کتاب را تمام کرد</string>
+    <string name="social_find_by_username">نام کاربری</string>
+    <string name="social_search">جست‌وجو</string>
+    <string name="social_no_such_reader">کتاب‌خوانی با این نام کاربری پیدا نشد.</string>
+    <string name="social_books_finished">%1$s کتاب خوانده</string>
+    <string name="social_follow">دنبال کردن</string>
+    <string name="social_unfollow">دنبال نکردن</string>
+    <string name="social_currently_reading">در حال خواندن</string>
+    <string name="social_readers_of_book">کتاب‌خوان‌های این کتاب</string>
+    <string name="social_no_readers">هنوز کس دیگری این کتاب را نمی‌خواند.</string>
+    <string name="social_offline_title">اتصال برقرار نیست</string>
+    <string name="social_error_title">بارگذاری نشد</string>
+    <string name="social_email">ایمیل</string>
+    <string name="social_password">رمز عبور</string>
+    <string name="social_password_hint">دست‌کم %1$d نویسه</string>
+    <string name="social_username">نام کاربری</string>
+    <string name="social_username_hint">حروف انگلیسی کوچک، عدد، _ و نقطه</string>
+    <string name="social_wrong_credentials">ایمیل یا رمز عبور درست نیست.</string>
+    <string name="social_have_account">حساب دارید؟ وارد شوید</string>
+    <string name="social_no_account">حساب ندارید؟ بسازید</string>
+    <string name="social_privacy_note">فقط اطلاعات کتاب (عنوان، نویسنده)، پیشرفت و آمار مطالعه همگام می‌شود؛ خود فایل‌های PDF هرگز از گوشی خارج نمی‌شوند.</string>
 </resources>

@@ -24,6 +24,9 @@ interface ReadingProgressDao {
 
     @Query("SELECT * FROM reading_progress")
     suspend fun getAll(): List<ReadingProgressEntity>
+
+    @Query("UPDATE reading_progress SET sync_state = :state WHERE book_id = :bookId")
+    suspend fun setSyncState(bookId: Long, state: SyncState)
 }
 
 @Dao
@@ -94,4 +97,7 @@ interface UserProfileDao {
 
     @Upsert
     suspend fun upsert(profile: UserProfileEntity)
+
+    @Query("UPDATE user_profile SET sync_state = 'SYNCED', remote_id = :remoteId WHERE id = :id AND updated_at = :updatedAt")
+    suspend fun markSynced(id: Long, remoteId: String?, updatedAt: Long)
 }

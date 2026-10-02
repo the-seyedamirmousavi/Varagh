@@ -100,6 +100,22 @@ interface BookDao {
     @Query("SELECT * FROM books WHERE sync_state != 'SYNCED'")
     suspend fun getUnsynced(): List<BookEntity>
 
+    @Query("UPDATE books SET remote_id = :remoteId, remote_entry_id = :entryId, sync_state = :syncState WHERE id = :id")
+    suspend fun setRemoteIds(id: Long, remoteId: String?, entryId: String?, syncState: SyncState)
+
+    @Query("UPDATE books SET sync_state = 'PENDING', updated_at = :updatedAt WHERE id = :id AND sync_state != 'DELETED'")
+    suspend fun markPending(id: Long, updatedAt: Long)
+
+    /** Marks a row synced only if it was not edited again while the request was in flight. */
+    @Query("UPDATE books SET sync_state = 'SYNCED' WHERE id = :id AND updated_at = :updatedAt")
+    suspend fun markSynced(id: Long, updatedAt: Long)
+
+    @Query("SELECT * FROM books WHERE remote_entry_id = :entryId LIMIT 1")
+    suspend fun findByRemoteEntryId(entryId: String): BookEntity?
+
+    @Query("SELECT * FROM books WHERE remote_id = :remoteId AND sync_state != 'DELETED' LIMIT 1")
+    suspend fun findByRemoteId(remoteId: String): BookEntity?
+
     @Query("SELECT * FROM books WHERE sync_state != 'DELETED' ORDER BY id")
     suspend fun getAll(): List<BookEntity>
 }

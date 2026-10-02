@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.varagh.android.application)
     alias(libs.plugins.varagh.android.compose)
@@ -11,7 +13,22 @@ android {
     defaultConfig {
         applicationId = "com.mid.varagh"
         versionCode = 1
-        versionName = "0.1.0"
+        versionName = "1.0.0"
+    }
+
+    // Release signing comes from keystore.properties (git-ignored), see README "Release builds".
+    val keystoreFile = rootProject.file("keystore.properties")
+    val releaseSigning = if (keystoreFile.isFile) {
+        val props = Properties().apply { keystoreFile.inputStream().use(::load) }
+        signingConfigs.create("release") {
+            storeFile = rootProject.file(props.getProperty("storeFile"))
+            storePassword = props.getProperty("storePassword")
+            keyAlias = props.getProperty("keyAlias")
+            keyPassword = props.getProperty("keyPassword")
+        }
+    } else {
+        logger.warn("keystore.properties not found: release build is signed with the DEBUG key (not for Play upload).")
+        signingConfigs.getByName("debug")
     }
 
     androidResources {
@@ -28,8 +45,7 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            // Debug-signed so `assembleRelease` works out of the box; replace with a real keystore.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = releaseSigning
         }
     }
 
@@ -63,10 +79,24 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.lifecycle.viewmodel.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.work.runtime)
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.compiler)
+
+    // Detects Activity/ViewModel/bitmap leaks automatically in debug builds only.
+    debugImplementation(libs.leakcanary.android)
 
     testImplementation(libs.androidx.navigation.testing)
     testImplementation(libs.hilt.android.testing)
     kspTest(libs.hilt.compiler)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
+}
+
+// The network permission exists only in remote-backend builds.
+val useRemoteBackend = providers.gradleProperty("varagh.useRemoteBackend").getOrElse("false").toBoolean()
+androidComponents {
+    onVariants { variant ->
+        if (useRemoteBackend) variant.sources.manifests.addStaticManifestFile("src/remote/AndroidManifest.xml")
+    }
 }

@@ -20,9 +20,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class LocalReadingSessionRepository @Inject constructor(
-    private val sessionDao: ReadingSessionDao,
+open class LocalReadingSessionRepository @Inject constructor(
+    protected val sessionDao: ReadingSessionDao,
 ) : ReadingSessionRepository {
+
+    protected open val writeState: SyncState get() = SyncState.SYNCED
+    protected open suspend fun afterWrite() = Unit
 
     override fun observeSessions(bookId: Long): Flow<List<ReadingSession>> =
         sessionDao.observeForBook(bookId).map { rows -> rows.map { it.asExternalModel() } }
@@ -39,12 +42,13 @@ class LocalReadingSessionRepository @Inject constructor(
                 startedAt = startedAt,
                 endedAt = endedAt,
                 pagesRead = pagesRead,
-                syncState = SyncState.SYNCED,
+                syncState = writeState,
             ),
-        )
+        ).also { afterWrite() }
 }
 
-class LocalBookmarkRepository @Inject constructor(
+/** Bookmarks are personal notes and stay on the device in both builds (no API endpoints). */
+open class LocalBookmarkRepository @Inject constructor(
     private val bookmarkDao: BookmarkDao,
     private val time: TimeProvider,
 ) : BookmarkRepository {
@@ -69,18 +73,24 @@ class LocalBookmarkRepository @Inject constructor(
 }
 
 /** The single local user. The row is created lazily on first edit. */
-class LocalUserProfileRepository @Inject constructor(
-    private val profileDao: UserProfileDao,
-    private val transaction: TransactionRunner,
-    private val time: TimeProvider,
+open class LocalUserProfileRepository @Inject constructor(
+    protected val profileDao: UserProfileDao,
+    protected val transaction: TransactionRunner,
+    protected val time: TimeProvider,
 ) : UserProfileRepository {
+
+    protected open val writeState: SyncState get() = SyncState.SYNCED
+    protected open suspend fun afterWrite() = Unit
 
     override fun observeProfile(): Flow<UserProfile> =
         profileDao.observe(UserProfile.LOCAL_USER_ID).map { it?.asExternalModel() ?: UserProfile.DefaultLocal }
 
-    override suspend fun updateProfile(transform: (UserProfile) -> UserProfile) = transaction {
-        val current = profileDao.get(UserProfile.LOCAL_USER_ID)?.asExternalModel() ?: UserProfile.DefaultLocal
-        val updated = transform(current).copy(id = UserProfile.LOCAL_USER_ID)
-        profileDao.upsert(updated.asEntity(updatedAt = time.nowMillis()))
+    override suspend fun updateProfile(transform: (UserProfile) -> UserProfile) {
+        transaction {
+            val current = profileDao.get(UserProfile.LOCAL_USER_ID)?.asExternalModel() ?: UserProfile.DefaultLocal
+            val updated = transform(current).copy(id = UserProfile.LOCAL_USER_ID)
+            profileDao.upsert(updated.asEntity(updatedAt = time.nowMillis(), syncState = writeState))
+        }
+        afterWrite()
     }
 }

@@ -1,0 +1,387 @@
+openapi: 3.0.3
+info:
+  title: Varagh API
+  version: 1.0.0
+  description: |
+    Backend contract for the Varagh Android app (planned implementation: Spring Boot + JWT).
+
+    Principles
+    - PDF files NEVER leave the device. Only book metadata, reading status/progress, sessions,
+      stats and profile data are exchanged.
+    - All timestamps are epoch milliseconds (UTC, int64).
+    - Clients ignore unknown fields; servers should ignore unknown fields too.
+    - Errors use `ErrorResponse` with a human-readable `message` (shown to the user for 400/409/422).
+    - Every endpoint except `/auth/*` requires `Authorization: Bearer <accessToken>`.
+      On 401 the client calls `/auth/refresh` once and retries; if that fails the user is signed out.
+    - Sync: the app keeps a local database as source of truth and pushes changes in the background
+      (last-write-wins by `updatedAt`). PATCH/POST endpoints must be idempotent where noted.
+servers:
+  - url: https://api.example.com/v1
+security:
+  - bearerAuth: []
+
+paths:
+  /auth/register:
+    post:
+      tags: [auth]
+      summary: Create an account
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/RegisterRequest' }
+      responses:
+        '200': { description: Signed in, content: { application/json: { schema: { $ref: '#/components/schemas/AuthResponse' } } } }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/Invalid' }
+  /auth/login:
+    post:
+      tags: [auth]
+      summary: Sign in with email and password
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LoginRequest' }
+      responses:
+        '200': { description: Signed in, content: { application/json: { schema: { $ref: '#/components/schemas/AuthResponse' } } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /auth/refresh:
+    post:
+      tags: [auth]
+      summary: Exchange a refresh token for a new token pair (refresh tokens rotate)
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/RefreshRequest' }
+      responses:
+        '200': { description: New tokens, content: { application/json: { schema: { $ref: '#/components/schemas/TokenPair' } } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+
+  /me:
+    get:
+      tags: [me]
+      summary: The signed-in user's profile
+      responses:
+        '200': { description: Profile, content: { application/json: { schema: { $ref: '#/components/schemas/UserProfile' } } } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+    patch:
+      tags: [me]
+      summary: Partially update the profile (only sent fields change)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UserProfilePatch' }
+      responses:
+        '200': { description: Updated profile, content: { application/json: { schema: { $ref: '#/components/schemas/UserProfile' } } } }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/Invalid' }
+  /me/avatar:
+    post:
+      tags: [me]
+      summary: Upload a profile picture (JPEG/PNG, max 2 MB)
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [avatar]
+              properties:
+                avatar: { type: string, format: binary }
+      responses:
+        '200':
+          description: Stored
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [avatarUrl]
+                properties:
+                  avatarUrl: { type: string, format: uri }
+        '413': { description: File too large }
+  /me/stats:
+    get:
+      tags: [me]
+      summary: Reading statistics computed from synced sessions and library
+      responses:
+        '200': { description: Stats, content: { application/json: { schema: { $ref: '#/components/schemas/ReadingStats' } } } }
+
+  /books/search:
+    get:
+      tags: [catalog]
+      summary: Search the shared catalog (metadata only, never files)
+      parameters:
+        - { name: q, in: query, required: true, schema: { type: string, minLength: 2 } }
+      responses:
+        '200':
+          description: Matches
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: '#/components/schemas/BookMeta' } }
+  /books/{remoteId}/readers:
+    get:
+      tags: [catalog, social]
+      summary: Public readers who have this catalog book in their library
+      parameters:
+        - { name: remoteId, in: path, required: true, schema: { type: string } }
+      responses:
+        '200':
+          description: Readers
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: '#/components/schemas/PublicReader' } }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /library:
+    get:
+      tags: [library]
+      summary: All library entries of the signed-in user
+      responses:
+        '200':
+          description: Entries
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: '#/components/schemas/LibraryEntry' } }
+    post:
+      tags: [library]
+      summary: Add a book to the library
+      description: |
+        The server matches `bookMeta` to an existing catalog entry (e.g. by normalised title +
+        author) or creates one, and returns it with its catalog `id`. Adding a book that is already
+        in the user's library returns the existing entry (idempotent).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LibraryEntryRequest' }
+      responses:
+        '200': { description: Entry, content: { application/json: { schema: { $ref: '#/components/schemas/LibraryEntry' } } } }
+  /library/{id}:
+    parameters:
+      - { name: id, in: path, required: true, description: Library entry id, schema: { type: string } }
+    patch:
+      tags: [library]
+      summary: Update status, rating and/or progress (only sent fields change; bumps updatedAt)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LibraryPatch' }
+      responses:
+        '200': { description: Updated entry, content: { application/json: { schema: { $ref: '#/components/schemas/LibraryEntry' } } } }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [library]
+      summary: Remove the entry (does not affect the shared catalog)
+      responses:
+        '204': { description: Removed }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /sessions:
+    post:
+      tags: [library]
+      summary: Batch-upload reading sessions
+      description: Idempotent on (user, bookId, startedAt); duplicates are ignored.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: array, maxItems: 500, items: { $ref: '#/components/schemas/ReadingSession' } }
+      responses:
+        '204': { description: Stored }
+
+  /users/{username}:
+    get:
+      tags: [social]
+      summary: Public profile of a reader (404 if the profile is private)
+      parameters:
+        - { name: username, in: path, required: true, schema: { type: string } }
+      responses:
+        '200': { description: Reader, content: { application/json: { schema: { $ref: '#/components/schemas/PublicReader' } } } }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /users/{id}/follow:
+    parameters:
+      - { name: id, in: path, required: true, description: Reader id, schema: { type: string } }
+    post:
+      tags: [social]
+      summary: Follow a reader (idempotent)
+      responses:
+        '204': { description: Following }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [social]
+      summary: Unfollow a reader (idempotent)
+      responses:
+        '204': { description: Not following }
+  /feed:
+    get:
+      tags: [social]
+      summary: What followed readers started, are reading or finished (newest first)
+      parameters:
+        - { name: cursor, in: query, required: false, description: Opaque cursor from the previous page, schema: { type: string } }
+      responses:
+        '200': { description: A page, content: { application/json: { schema: { $ref: '#/components/schemas/FeedPage' } } } }
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    Unauthorized: { description: Missing/invalid/expired token or wrong credentials, content: { application/json: { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+    NotFound: { description: Not found, content: { application/json: { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+    Conflict: { description: Conflict (e.g. username or email taken), content: { application/json: { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+    Invalid: { description: Validation failed, content: { application/json: { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message: { type: string, description: Human-readable, localised if Accept-Language is sent }
+        code: { type: string, example: USERNAME_TAKEN }
+
+    RegisterRequest:
+      type: object
+      required: [username, email, password]
+      properties:
+        username: { type: string, pattern: '^[a-z0-9_.]{3,20}$' }
+        email: { type: string, format: email }
+        password: { type: string, minLength: 8 }
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email: { type: string, format: email }
+        password: { type: string }
+    RefreshRequest:
+      type: object
+      required: [refreshToken]
+      properties:
+        refreshToken: { type: string }
+    TokenPair:
+      type: object
+      required: [accessToken, refreshToken]
+      properties:
+        accessToken: { type: string, description: 'JWT, ~15 min lifetime' }
+        refreshToken: { type: string, description: 'Opaque or JWT, ~30 days, rotated on use' }
+    AuthResponse:
+      allOf:
+        - $ref: '#/components/schemas/TokenPair'
+        - type: object
+          required: [user]
+          properties:
+            user: { $ref: '#/components/schemas/UserProfile' }
+
+    UserProfile:
+      type: object
+      required: [id, username]
+      properties:
+        id: { type: string }
+        username: { type: string }
+        displayName: { type: string, default: '' }
+        bio: { type: string, maxLength: 160, default: '' }
+        avatarUrl: { type: string, format: uri, nullable: true }
+        isPublic: { type: boolean, default: false }
+        currentlyReadingBookId: { type: string, nullable: true, description: Catalog book id }
+    UserProfilePatch:
+      type: object
+      description: Only present fields are applied.
+      properties:
+        displayName: { type: string, maxLength: 40 }
+        username: { type: string, pattern: '^[a-z0-9_.]{3,20}$' }
+        bio: { type: string, maxLength: 160 }
+        isPublic: { type: boolean }
+        currentlyReadingBookId: { type: string, nullable: true }
+
+    BookMeta:
+      type: object
+      required: [title]
+      properties:
+        id: { type: string, description: Catalog id (absent in requests) }
+        title: { type: string }
+        author: { type: string, nullable: true }
+        pageCount: { type: integer, nullable: true }
+        coverUrl: { type: string, format: uri, nullable: true }
+    ReadingStatus:
+      type: string
+      enum: [WANT_TO_READ, READING, FINISHED, ABANDONED]
+    LibraryEntryRequest:
+      type: object
+      required: [bookMeta, status]
+      properties:
+        bookMeta: { $ref: '#/components/schemas/BookMeta' }
+        status: { $ref: '#/components/schemas/ReadingStatus' }
+        rating: { type: integer, minimum: 0, maximum: 5, nullable: true }
+    LibraryEntry:
+      type: object
+      required: [id, book, status, updatedAt]
+      properties:
+        id: { type: string, description: Library entry id }
+        book: { $ref: '#/components/schemas/BookMeta' }
+        status: { $ref: '#/components/schemas/ReadingStatus' }
+        rating: { type: integer, minimum: 0, maximum: 5, nullable: true }
+        progressPercent: { type: number, format: float, minimum: 0, maximum: 1, nullable: true }
+        currentPage: { type: integer, minimum: 0, nullable: true, description: Zero-based }
+        updatedAt: { type: integer, format: int64 }
+    LibraryPatch:
+      type: object
+      description: Only present fields are applied.
+      properties:
+        status: { $ref: '#/components/schemas/ReadingStatus' }
+        rating: { type: integer, minimum: 0, maximum: 5, nullable: true }
+        progressPercent: { type: number, format: float, minimum: 0, maximum: 1 }
+        currentPage: { type: integer, minimum: 0 }
+
+    ReadingSession:
+      type: object
+      required: [bookId, startedAt, endedAt, pagesRead]
+      properties:
+        bookId: { type: string, description: Catalog book id }
+        startedAt: { type: integer, format: int64 }
+        endedAt: { type: integer, format: int64 }
+        pagesRead: { type: integer, minimum: 0 }
+    ReadingStats:
+      type: object
+      required: [totalBooksFinished, totalPagesRead, totalMinutesRead, currentStreakDays]
+      properties:
+        totalBooksFinished: { type: integer }
+        totalPagesRead: { type: integer }
+        totalMinutesRead: { type: integer, format: int64 }
+        currentStreakDays: { type: integer }
+
+    PublicReader:
+      type: object
+      required: [id, username]
+      properties:
+        id: { type: string }
+        username: { type: string }
+        displayName: { type: string, default: '' }
+        bio: { type: string, default: '' }
+        avatarUrl: { type: string, format: uri, nullable: true }
+        currentlyReading: { $ref: '#/components/schemas/BookMeta' }
+        booksFinished: { type: integer, default: 0 }
+        isFollowedByMe: { type: boolean, default: false }
+    FeedItem:
+      type: object
+      required: [id, reader, book, type, createdAt]
+      properties:
+        id: { type: string }
+        reader: { $ref: '#/components/schemas/PublicReader' }
+        book: { $ref: '#/components/schemas/BookMeta' }
+        type: { type: string, enum: [STARTED, READING, FINISHED] }
+        progressPercent: { type: number, format: float, nullable: true }
+        createdAt: { type: integer, format: int64 }
+    FeedPage:
+      type: object
+      required: [items]
+      properties:
+        items: { type: array, items: { $ref: '#/components/schemas/FeedItem' } }
+        nextCursor: { type: string, nullable: true, description: Null on the last page }

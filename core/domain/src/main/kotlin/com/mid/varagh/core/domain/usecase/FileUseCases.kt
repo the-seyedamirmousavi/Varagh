@@ -24,7 +24,14 @@ class ImportBookUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(fileUri: String): ImportResult {
         val info = files.inspect(fileUri)
-        books.findByHash(info.fileHash)?.let { return ImportResult.Duplicate(it) }
+        books.findByHash(info.fileHash)?.let { existing ->
+            if (existing.fileUri != fileUri) {
+                // Re-picking a book whose file went missing repairs it; otherwise keep the existing
+                // copy and drop the permission we no longer need.
+                if (files.isReadable(existing.fileUri)) files.releaseAccess(fileUri) else books.updateFileUri(existing.id, fileUri)
+            }
+            return ImportResult.Duplicate(existing)
+        }
         val cover = files.renderCover(fileUri, info.fileHash)
         val title = titleFromFileName(info.displayName)
         val result = addBook(

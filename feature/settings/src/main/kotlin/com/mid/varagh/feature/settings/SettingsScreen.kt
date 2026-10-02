@@ -55,7 +55,6 @@ import com.mid.varagh.core.designsystem.theme.VaraghSpacing
 import com.mid.varagh.core.designsystem.theme.supportsDynamicTheming
 import com.mid.varagh.core.model.AppLanguage
 import com.mid.varagh.core.model.DarkThemeConfig
-import com.mid.varagh.core.model.FeatureFlags
 import com.mid.varagh.core.model.ReadingMode
 import com.mid.varagh.core.model.ReadingTheme
 import com.mid.varagh.core.model.UserPreferences
@@ -65,7 +64,6 @@ import java.util.Locale
 
 @Composable
 internal fun SettingsScreenRoute(
-    onOpenDeveloperInfo: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val preferences by viewModel.preferences.collectAsStateWithLifecycle()
@@ -95,7 +93,6 @@ internal fun SettingsScreenRoute(
     }
     SettingsScreen(
         preferences = preferences,
-        featureFlags = viewModel.featureFlags,
         busy = busy,
         snackbarHostState = snackbar,
         appVersion = remember(context) {
@@ -104,15 +101,12 @@ internal fun SettingsScreenRoute(
         onUpdate = viewModel::update,
         onExport = { exportLauncher.launch(backupFileName()) },
         onImport = { importLauncher.launch(arrayOf(BACKUP_MIME, "text/plain", "application/octet-stream")) },
-        onOpenDeveloperInfo = onOpenDeveloperInfo,
     )
 }
 
 @Composable
 internal fun SettingsScreen(
     preferences: UserPreferences?,
-    featureFlags: FeatureFlags,
-    onOpenDeveloperInfo: () -> Unit,
     modifier: Modifier = Modifier,
     busy: Boolean = false,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
@@ -153,16 +147,6 @@ internal fun SettingsScreen(
                     title = stringResource(R.string.settings_privacy),
                     subtitle = stringResource(R.string.settings_privacy_summary),
                 )
-            }
-            if (featureFlags.showDeveloperInfo) {
-                VaraghCard(title = stringResource(R.string.settings_section_developer), contentPadding = PaddingValues(vertical = VaraghSpacing.XSmall)) {
-                    SettingsRow(
-                        icon = VaraghIcons.Tune,
-                        title = stringResource(R.string.settings_developer_info),
-                        subtitle = stringResource(R.string.settings_developer_info_summary),
-                        onClick = onOpenDeveloperInfo,
-                    )
-                }
             }
         }
     }

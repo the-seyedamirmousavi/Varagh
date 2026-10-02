@@ -71,6 +71,10 @@ class PdfDocument private constructor(
 
     fun cached(index: Int, widthPx: Int): Bitmap? = cache.get(CacheKey(index, bucket(widthPx)))
 
+    /** Bytes currently held by the page cache and its limit (for tests and diagnostics). */
+    internal val cacheBytes: Int get() = cache.size()
+    internal val cacheLimitBytes: Int get() = cache.maxSize()
+
     /**
      * Renders page [index] [widthPx] wide (height follows the page's aspect ratio), or returns null
      * if the page cannot be rendered (document closed or page damaged).

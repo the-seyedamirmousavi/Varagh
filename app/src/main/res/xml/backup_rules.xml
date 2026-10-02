@@ -1,13 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-   Sample backup rules file; uncomment and customize as necessary.
-   See https://developer.android.com/guide/topics/data/autobackup
-   for details.
-   Note: This file is ignored for devices older than API 31
-   See https://developer.android.com/about/versions/12/backup-restore
--->
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 11 and lower. Library data, covers and settings are backed up; login tokens and their
+     Keystore-bound keyset are not (they cannot be decrypted on another device anyway). -->
 <full-backup-content>
-    <!--
-   <include domain="sharedpref" path="."/>
-   <exclude domain="sharedpref" path="device.xml"/>
--->
+    <exclude domain="sharedpref" path="varagh_token_keyset_prefs.xml" />
+    <exclude domain="file" path="datastore/auth_tokens.preferences_pb" />
 </full-backup-content>

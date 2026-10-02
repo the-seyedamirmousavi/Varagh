@@ -28,12 +28,6 @@ class FeatureFlagsTest {
     }
 
     @Test
-    fun `developer info only in debug builds`() {
-        assertTrue(FeatureFlags(false, "", isDebugBuild = true).showDeveloperInfo)
-        assertFalse(FeatureFlags(false, "", isDebugBuild = false).showDeveloperInfo)
-    }
-
-    @Test
     fun `language falls back to persian`() {
         assertEquals(AppLanguage.ENGLISH, AppLanguage.fromTag("en-US"))
         assertEquals(AppLanguage.PERSIAN, AppLanguage.fromTag("fa-IR"))
